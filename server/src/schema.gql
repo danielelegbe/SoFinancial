@@ -20,14 +20,7 @@ type User {
   username: String!
   avatar: String!
   posts: [Post!]
-}
-
-type Comment {
-  id: Int!
-  content: String!
-  createdAt: DateTime!
-  author: User
-  post: Post
+  comments: [Comment!]
 }
 
 type Post {
@@ -38,6 +31,14 @@ type Post {
   author: User
   forum: Forum
   comments: [Comment!]
+}
+
+type Comment {
+  id: Int!
+  content: String!
+  createdAt: DateTime!
+  author: User
+  post: Post
 }
 
 type Query {
@@ -55,6 +56,7 @@ type Mutation {
   createPost(newPostInput: NewPostInput!): Post!
   createForum(newForumInput: NewForumInput!): Forum!
   createComment(createCommentInput: CreateCommentInput!): Comment!
+  deleteComment(id: DeleteCommentInput!): Comment!
 }
 
 input NewPostInput {
@@ -70,4 +72,8 @@ input NewForumInput {
 input CreateCommentInput {
   content: String!
   postId: Int!
+}
+
+input DeleteCommentInput {
+  id: Int!
 }

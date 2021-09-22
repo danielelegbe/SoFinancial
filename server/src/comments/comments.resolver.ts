@@ -4,7 +4,6 @@ import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
 import { PostsService } from 'src/posts/posts.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UsersService } from 'src/users/users.service';
 import { CommentsService } from './comments.service';
 import { CreateCommentInput } from './dto/CreateCommentInput';
 import { Comment } from './models/Comment';
@@ -12,7 +11,6 @@ import { Comment } from './models/Comment';
 @Resolver(Comment)
 export class CommentsResolver {
   constructor(
-    private readonly usersService: UsersService,
     private readonly prisma: PrismaService,
     private readonly postsService: PostsService,
     private readonly commentsService: CommentsService,
@@ -44,6 +42,4 @@ export class CommentsResolver {
       },
     });
   }
-
-  // async newComment();
 }

@@ -22,15 +22,6 @@ type User {
   posts: [Post!]
 }
 
-type Post {
-  id: Int!
-  title: String!
-  content: String!
-  createdAt: DateTime!
-  author: User
-  forum: Forum
-}
-
 type Comment {
   id: Int!
   content: String!
@@ -39,8 +30,25 @@ type Comment {
   post: Post
 }
 
+type Post {
+  id: Int!
+  title: String!
+  content: String!
+  createdAt: DateTime!
+  author: User
+  forum: Forum
+  comments: [Comment!]
+}
+
 type Query {
   me: User!
+  getProfile(id: GetProfileDto!): User!
+  getAllPosts: [Post!]!
+  getAllForums: [Forum!]!
+}
+
+input GetProfileDto {
+  id: Int!
 }
 
 type Mutation {

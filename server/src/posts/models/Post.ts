@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Forum } from 'src/forum/models/Forum';
 import { User } from 'src/users/models/User';
+import { Comment } from 'src/comments/models/Comment';
 
 @ObjectType()
 export class Post {
@@ -21,4 +22,7 @@ export class Post {
 
   @Field(() => Forum, { nullable: true })
   forum?: Forum | null;
+
+  @Field(() => [Comment], { nullable: true })
+  comments?: Comment[] | null;
 }

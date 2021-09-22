@@ -3,16 +3,25 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { Args, Mutation, ResolveField, Resolver, Root } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+  Root,
+} from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
 import { ForumService } from 'src/forum/forum.service';
-import { Forum } from 'src/forum/models/Forum';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Forum } from 'src/forum/models/Forum';
 import { User } from 'src/users/models/User';
+import { Post } from './models/Post';
+import { Comment } from 'src/comments/models/Comment';
 import { UsersService } from 'src/users/users.service';
 import { NewPostInput } from './dto/NewPostInput';
-import { Post } from './models/Post';
+import { PostsService } from './posts.service';
 
 @Resolver(Post)
 export class PostsResolver {
@@ -20,6 +29,7 @@ export class PostsResolver {
     private readonly prisma: PrismaService,
     private readonly forumService: ForumService,
     private readonly usersService: UsersService,
+    private readonly postsService: PostsService,
   ) {}
 
   @ResolveField()
@@ -36,6 +46,16 @@ export class PostsResolver {
       })
       .forum();
   }
+  @ResolveField()
+  async comments(@Root() post: Post): Promise<Comment[]> {
+    return await this.prisma.post
+      .findUnique({
+        where: {
+          id: post.id,
+        },
+      })
+      .comments();
+  }
 
   @UseGuards(GQLAuthGuard)
   @Mutation(() => Post)
@@ -43,9 +63,10 @@ export class PostsResolver {
     @Args('newPostInput') newPostInput: NewPostInput,
     @CurrentUser() user: User,
   ) {
-    const author = await this.prisma.user.findUnique({
-      where: { id: user.id },
-    });
+    // const author = await this.prisma.user.findUnique({
+    //   where: { id: user.id },
+    // });
+    const author = await this.usersService.findUserById(user.id);
 
     if (!author)
       throw new UnauthorizedException('Must be logged in to create a post');
@@ -66,5 +87,10 @@ export class PostsResolver {
     });
 
     return newPost;
+  }
+
+  @Query(() => [Post])
+  async getAllPosts() {
+    return this.postsService.getAllPosts();
   }
 }

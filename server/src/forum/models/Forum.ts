@@ -6,6 +6,9 @@ export class Forum {
   @Field(() => Int)
   id: number;
 
+  @Field(() => Date)
+  createdAt: Date;
+
   @Field()
   name: string;
 

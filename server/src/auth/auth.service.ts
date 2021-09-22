@@ -51,10 +51,11 @@ export class AuthService {
 
   async verify(access_token: string): Promise<User> {
     const decoded = this.jwtService.verify(access_token);
-    if (!decoded) throw new Error('Bad token');
+    if (!decoded) throw new UnauthorizedException('Bad token');
 
     const user = await this.usersService.findUserById(decoded.sub);
-    if (!user) throw new Error('Unable to find user from token');
+    if (!user)
+      throw new UnauthorizedException('Unable to find user from token');
 
     return user;
   }

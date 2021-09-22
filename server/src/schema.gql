@@ -4,9 +4,15 @@
 
 type Forum {
   id: Int!
+  createdAt: DateTime!
   name: String!
   posts: [Post!]
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type User {
   id: Int!
@@ -25,18 +31,22 @@ type Post {
   forum: Forum
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type Comment {
+  id: Int!
+  content: String!
+  createdAt: DateTime!
+  author: User
+  post: Post
+}
 
 type Query {
-  getAllUsers: [User!]!
+  me: User!
 }
 
 type Mutation {
   createPost(newPostInput: NewPostInput!): Post!
   createForum(newForumInput: NewForumInput!): Forum!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
 }
 
 input NewPostInput {
@@ -47,4 +57,9 @@ input NewPostInput {
 
 input NewForumInput {
   name: String!
+}
+
+input CreateCommentInput {
+  content: String!
+  postId: Int!
 }

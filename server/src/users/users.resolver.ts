@@ -2,6 +2,7 @@ import { BadRequestException, UseGuards } from '@nestjs/common';
 import { Query, ResolveField, Resolver, Root, Args } from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
+import { Comment } from 'src/comments/models/Comment';
 import { Post } from 'src/posts/models/Post';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { GetProfileDto } from './dto/GetProfileDto';
@@ -17,6 +18,10 @@ export class UsersResolver {
   @ResolveField()
   async posts(@Root() user: User): Promise<Post[]> {
     return this.prisma.user.findUnique({ where: { id: user.id } }).posts();
+  }
+  @ResolveField()
+  async comments(@Root() user: User): Promise<Comment[]> {
+    return this.prisma.user.findUnique({ where: { id: user.id } }).comments();
   }
 
   @UseGuards(GQLAuthGuard)

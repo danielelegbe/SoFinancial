@@ -1,5 +1,12 @@
 import { BadRequestException, UseGuards } from '@nestjs/common';
-import { Args, Mutation, ResolveField, Resolver, Root } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+  Root,
+} from '@nestjs/graphql';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
 import { ForumService } from 'src/forum/forum.service';
 import { Forum } from 'src/forum/models/Forum';
@@ -28,5 +35,10 @@ export class ForumResolver {
     if (foundForum) throw new BadRequestException('Forum already exists');
 
     return this.forumService.createForum(name);
+  }
+
+  @Query(() => [Forum])
+  async getAllForums(): Promise<Forum[]> {
+    return this.forumService.getAllForums();
   }
 }

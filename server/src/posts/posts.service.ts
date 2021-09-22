@@ -12,4 +12,8 @@ export class PostsService {
     if (!post) throw new BadRequestException('post not found');
     return post;
   }
+
+  async getAllPosts(): Promise<Post[]> {
+    return await this.prisma.post.findMany();
+  }
 }

@@ -6,7 +6,6 @@ export class NewUserDto {
   email: string;
 
   @IsString()
-  @IsString()
   @Length(6, 20)
   username: string;
 

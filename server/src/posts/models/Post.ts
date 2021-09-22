@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, DateScalarMode } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Forum } from 'src/forum/models/Forum';
 import { User } from 'src/users/models/User';
 

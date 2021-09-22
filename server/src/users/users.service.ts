@@ -46,4 +46,14 @@ export class UsersService {
     const { password, ...userResponse } = foundUser;
     return userResponse as User;
   }
+
+  async resolveAuthor(parent: any): Promise<User> {
+    return await this.prisma.post
+      .findUnique({
+        where: {
+          id: parent.id,
+        },
+      })
+      .author();
+  }
 }

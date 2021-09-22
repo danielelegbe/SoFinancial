@@ -18,11 +18,13 @@ model User {
   password String
   avatar String?
   posts Post[]
+  comments Comment[]
 }
 
 model Forum{
   id    Int     @default(autoincrement()) @id
   name String @unique
+  createdAt DateTime @default(now())
   posts Post[] 
 
 }
@@ -38,4 +40,18 @@ model Post {
 
   forum Forum @relation(fields: [forumId], references: [id])
   forumId Int
+
+  comments Comment[]
+}
+
+model Comment {
+  id        Int      @default(autoincrement()) @id
+  content String
+  createdAt DateTime @default(now())
+  
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+
+  post Post @relation(fields: [postId], references: [id]) 
+  postId Int
 }

@@ -24,13 +24,7 @@ export class PostsResolver {
 
   @ResolveField()
   async author(@Root() post: Post): Promise<User> {
-    return await this.prisma.post
-      .findUnique({
-        where: {
-          id: post.id,
-        },
-      })
-      .author();
+    return this.usersService.resolveAuthor(post);
   }
   @ResolveField()
   async forum(@Root() post: Post): Promise<Forum> {

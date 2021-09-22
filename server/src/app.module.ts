@@ -10,6 +10,7 @@ import { UsersService } from './users/users.service';
 // import { join } from 'path';
 import { PostsModule } from './posts/posts.module';
 import { ForumModule } from './forum/forum.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ForumModule } from './forum/forum.module';
     }),
     PostsModule,
     ForumModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService, UsersService],

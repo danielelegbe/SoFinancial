@@ -42,6 +42,8 @@ export class UsersService {
     });
     if (!foundUser) return null;
 
-    return foundUser;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...userResponse } = foundUser;
+    return userResponse as User;
   }
 }

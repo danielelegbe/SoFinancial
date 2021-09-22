@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
 // import { join } from 'path';
+import { PostsModule } from './posts/posts.module';
+import { ForumModule } from './forum/forum.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { UsersService } from './users/users.service';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    PostsModule,
+    ForumModule,
   ],
   controllers: [AppController],
   providers: [AppService, UsersService],

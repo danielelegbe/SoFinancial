@@ -2,13 +2,49 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Forum {
+  id: Int!
+  name: String!
+  posts: [Post!]
+}
+
 type User {
   id: Int!
   email: String!
   username: String!
   avatar: String!
+  posts: [Post!]
 }
+
+type Post {
+  id: Int!
+  title: String!
+  content: String!
+  createdAt: DateTime!
+  author: User
+  forum: Forum
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Query {
   getAllUsers: [User!]!
+}
+
+type Mutation {
+  createPost(newPostInput: NewPostInput!): Post!
+  createForum(newForumInput: NewForumInput!): Forum!
+}
+
+input NewPostInput {
+  title: String!
+  content: String!
+  forum: String!
+}
+
+input NewForumInput {
+  name: String!
 }

@@ -24,7 +24,7 @@ export class PostsResolver {
 
   @ResolveField()
   async author(@Root() post: Post): Promise<User> {
-    return this.usersService.resolveAuthor(post);
+    return this.usersService.resolveAuthorForPost(post);
   }
   @ResolveField()
   async forum(@Root() post: Post): Promise<Forum> {

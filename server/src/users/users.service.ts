@@ -47,7 +47,7 @@ export class UsersService {
     return userResponse as User;
   }
 
-  async resolveAuthor(parent: any): Promise<User> {
+  async resolveAuthorForPost(parent: any): Promise<User> {
     return await this.prisma.post
       .findUnique({
         where: {

@@ -20,7 +20,7 @@ export class CommentsResolver {
 
   @ResolveField()
   async author(@Root() comment: Comment) {
-    return this.usersService.resolveAuthor(comment);
+    return this.commentsService.resolveAuthorForComment(comment);
   }
   @ResolveField()
   async post(@Root() comment: Comment) {

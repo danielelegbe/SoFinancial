@@ -1,13 +1,4 @@
-import {
-  ClassSerializerInterceptor,
-  Controller,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-  UseInterceptors,
-  Body,
-} from '@nestjs/common';
+import { Controller, Post, Req, Res, UseGuards, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
 import { Request, Response } from 'express';

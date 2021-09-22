@@ -1,5 +1,4 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Exclude } from 'class-transformer';
 
 @ObjectType()
 export class User {
@@ -12,6 +11,8 @@ export class User {
   @Field()
   username: string;
 
-  @Exclude({ toPlainOnly: true })
+  @Field()
+  avatar: string;
+
   password: string;
 }

@@ -15,6 +15,7 @@ export class UsersService {
     return await this.prisma.user.create({
       data: {
         ...userData,
+        avatar: `https://avatars.dicebear.com/api/avataaars/${userData.username}.svg`,
         password: hashedPassword,
       },
     });

@@ -33,10 +33,10 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
       <Box as="section" maxH="50%" overflow="hidden">
         <Text>{post.content}</Text>
       </Box>
-      <Flex w="40%" justify="space-between">
-        <Text>Posted by - {post.author?.username}</Text>
+      <Flex w="50%" maxW="80%" justify="space-between">
+        <Text flex={1}>Posted by - {post.author?.username}</Text>
         {post.comments && (
-          <HStack spacing={2} align="center">
+          <HStack flex={1} spacing={2} align="center">
             <ChatIcon />
             <Text>
               {post.comments?.length === 1

@@ -19,7 +19,6 @@ const Home = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Flex direction="column">
-      <Navbar />
       <Stack spacing={12} justify="center" direction="row" my={8}>
         <InputGroup w="30%">
           <InputLeftElement>

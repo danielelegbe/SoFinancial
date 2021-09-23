@@ -6,13 +6,14 @@ import { store } from '../app/store';
 import { setUser } from '../features/user/userSlice';
 import { ChakraProvider } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar/Navbar';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
 
   const progress = new ProgressBar({
     delay: 100,
-    color: 'purple',
+    color: '#3182ce',
     size: 2,
   });
 
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ChakraProvider>
+        <Navbar />
         <Component {...pageProps} />
       </ChakraProvider>
     </Provider>

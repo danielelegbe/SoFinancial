@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useGetAllPostsQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
@@ -10,6 +10,7 @@ const PostsSection = () => {
   if (!data || loading) return <h1>Loading</h1>;
   return (
     <VStack spacing={4}>
+      <Heading>Forum</Heading>
       {data.getAllPosts.map((post) => {
         return <Post key={post.id} {...post} />;
       })}

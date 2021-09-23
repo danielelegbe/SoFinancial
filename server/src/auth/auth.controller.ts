@@ -37,6 +37,8 @@ export class AuthController {
           expiresIn: '7d',
         }),
         {
+          secure: false,
+          sameSite: 'strict',
           maxAge: 6.048e8, // 7 days
           httpOnly: true,
         },

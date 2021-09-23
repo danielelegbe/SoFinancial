@@ -1,0 +1,17 @@
+query GetAllPosts {
+  getAllPosts {
+    id
+    title
+    content
+    createdAt
+    comments {
+      id
+    }
+    author {
+      username
+    }
+    forum {
+      name
+    }
+  }
+}

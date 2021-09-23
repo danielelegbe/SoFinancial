@@ -1,7 +1,6 @@
 import { SearchIcon } from '@chakra-ui/icons';
 import {
   Flex,
-  Heading,
   Input,
   InputGroup,
   InputLeftElement,
@@ -13,6 +12,7 @@ import ArticleSection from '../components/Articles/ArticleSection';
 import Navbar from '../components/Navbar/Navbar';
 import axios, { AxiosRequestConfig } from 'axios';
 import Article from '../components/Articles/interfaces/Article';
+import PostsSection from '../components/Posts/PostsSection';
 
 const Home = ({
   filteredArticles,
@@ -33,7 +33,8 @@ const Home = ({
           />
         </InputGroup>
       </Stack>
-      <ArticleSection articles={filteredArticles} />
+      {filteredArticles && <ArticleSection articles={filteredArticles} />}
+      <PostsSection />
     </Flex>
   );
 };
@@ -41,7 +42,7 @@ const Home = ({
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  var options: AxiosRequestConfig = {
+  const options: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://newscatcher.p.rapidapi.com/v1/search_free',
     params: { q: 'business', lang: 'en', media: 'True' },

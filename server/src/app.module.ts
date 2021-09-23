@@ -19,6 +19,7 @@ import { CommentsModule } from './comments/comments.module';
     UsersModule,
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      cors: false,
     }),
     PostsModule,
     ForumModule,

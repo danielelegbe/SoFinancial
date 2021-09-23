@@ -1,0 +1,8 @@
+.nav a {
+  font-weight: bold;
+  transition: 0.1s ease-out;
+}
+.nav a:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
+}

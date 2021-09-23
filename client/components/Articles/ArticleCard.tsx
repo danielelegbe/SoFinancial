@@ -5,7 +5,11 @@ import Article from './interfaces/Article';
 const ArticleCard = ({ author, link, title, media }: Article) => {
   return (
     <Flex
-      _hover={{ cursor: 'pointer' }}
+      _hover={{
+        cursor: 'pointer',
+        transform: 'scale(1.02)',
+      }}
+      transition="0.2s ease-out"
       direction="column"
       justify="space-between"
       boxShadow="md"

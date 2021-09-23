@@ -6,7 +6,7 @@ import styles from './Navbar.module.css';
 
 const Navbar = () => {
   return (
-    <Flex as={'header'} maxH="80px" boxShadow="md">
+    <Flex as={'header'} maxH="80px" boxShadow="md" mb={5}>
       <Box p={4} pl={20}>
         <Heading textDecor="underline" size="xl" as="h1">
           SoFinancial

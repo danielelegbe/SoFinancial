@@ -1,19 +1,27 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Stack } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 import React from 'react';
 import ArticleSection from '../../components/Articles/ArticleSection';
 import Article from '../../components/Articles/interfaces/Article';
-import Search from '../../components/Search';
+import Search from '../../components/Search/Search';
 
 const ArticleSearchPage = ({
   uniqueArticles,
+  searchParam,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
-    <Box>
-      <Search />
+    <>
+      <Head>
+        <title>{searchParam}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Stack my={6} align="center">
+        <Search />
+      </Stack>
       <ArticleSection articles={uniqueArticles} />
-    </Box>
+    </>
   );
 };
 
@@ -29,7 +37,7 @@ export const getServerSideProps = async (
     params: { q: { searchParam }, lang: 'en', media: 'True' },
     headers: {
       'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
-      'x-rapidapi-key': process.env.NEWS_API_KEY,
+      'x-rapidapi-key': process.env.RAPID_API_KEY,
     },
   };
 
@@ -44,8 +52,7 @@ export const getServerSideProps = async (
     seen.add(el.media);
     return !duplicate;
   });
-
   return {
-    props: { uniqueArticles },
+    props: { uniqueArticles, searchParam },
   };
 };

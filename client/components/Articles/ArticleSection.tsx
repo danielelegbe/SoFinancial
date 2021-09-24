@@ -1,7 +1,7 @@
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
-import Search from '../Search';
+import Search from '../Search/Search';
 import ArticleCard from './ArticleCard';
 import Article from './interfaces/Article';
 

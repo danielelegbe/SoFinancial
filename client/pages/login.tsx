@@ -15,10 +15,14 @@ import { Formik, Form, Field } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { setAccessToken } from '../features/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMeQuery } from '../generated/graphql';
+import { RootState } from '../app/store';
 
 const Login = () => {
+  const { access_token } = useSelector((state: RootState) => state.user);
   const router = useRouter();
+  if (access_token) router.push('/');
   const dispatch = useDispatch();
   const validationSchema = Yup.object({
     username: Yup.string().required(),
@@ -49,7 +53,7 @@ const Login = () => {
               values,
               { withCredentials: true }
             );
-            if (response.status === 201) {
+            if (response.data) {
               dispatch(setAccessToken(response.data.access_token));
               window.location.href = '/forum';
             }

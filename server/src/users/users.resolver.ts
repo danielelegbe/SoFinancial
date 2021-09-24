@@ -25,8 +25,9 @@ export class UsersResolver {
   }
 
   @UseGuards(GQLAuthGuard)
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   async me(@CurrentUser() user): Promise<User | null> {
+    console.log(user);
     return user;
   }
 

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -10,26 +10,23 @@ export class TokenRefreshService {
   ) {}
 
   async refreshToken(token: string) {
-    if (!token) {
-      throw new UnauthorizedException();
-    }
+    if (!token) return null;
+
     try {
       const decoded = this.jwtService.verify(token, {
         secret: process.env.REFRESH_SECRET,
       });
 
+      if (!decoded) return null;
       const foundUser = await this.prisma.user.findUnique({
         where: { id: decoded.sub },
         select: { id: true, username: true },
       });
 
-      if (!foundUser) {
-        throw new UnauthorizedException();
-      }
-
+      if (!foundUser) return null;
       return foundUser;
     } catch (error) {
-      throw new UnauthorizedException('bad token');
+      return null;
     }
   }
 }

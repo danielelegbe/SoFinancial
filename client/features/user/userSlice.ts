@@ -3,14 +3,14 @@ import type { RootState } from '../../app/store';
 
 // Define a type for the slice state
 interface LoggedInUser {
-  accessToken: string;
+  access_token: string;
   id: number | null;
 }
 
 // Define the initial state using that type
 
 const initialState: LoggedInUser = {
-  accessToken: '',
+  access_token: '',
   id: null,
 };
 
@@ -24,14 +24,14 @@ export const userSlice = createSlice({
     ) => {
       return {
         ...state,
-        accessToken: payload.accessToken,
+        access_token: payload.access_token,
       };
     },
     setAccessToken: (
       state: LoggedInUser,
       { payload }: PayloadAction<string>
     ) => {
-      state.accessToken = payload;
+      state.access_token = payload;
     },
   },
 });

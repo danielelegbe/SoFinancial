@@ -7,11 +7,10 @@ import { store } from './app/store';
 import { setAccessToken } from './features/user/userSlice';
 
 export const tokenRefreshLink = new TokenRefreshLink({
-  accessTokenField: 'accessToken',
+  accessTokenField: 'access_token',
   isTokenValidOrUndefined: () => {
-    console.log('checking token');
     const { user } = store.getState();
-    const token = user.accessToken;
+    const token = user.access_token;
 
     if (!token) {
       return true;
@@ -36,9 +35,9 @@ export const tokenRefreshLink = new TokenRefreshLink({
       method: 'POST',
     });
   },
-  handleFetch: (accessToken) => {
+  handleFetch: (access_token) => {
     console.log('setting token');
-    store.dispatch(setAccessToken(accessToken));
+    store.dispatch(setAccessToken(access_token));
   },
 
   handleError: (err) => {
@@ -52,20 +51,20 @@ export const httpLink = new HttpLink({
   credentials: 'include',
 });
 
-export const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
+// export const errorLink = onError(({ graphQLErrors, networkError }) => {
+//   if (graphQLErrors)
+//     graphQLErrors.forEach(({ message, locations, path }) =>
+//       console.log(
+//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+//       )
+//     );
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
+//   if (networkError) console.log(`[Network error]: ${networkError}`);
+// });
 
 export const authLink = setContext((_, { headers }) => {
   const { user } = store.getState();
-  const token = user.accessToken;
+  const token = user.access_token;
 
   return {
     headers: { ...headers, authorization: token ? `Bearer ${token}` : '' },

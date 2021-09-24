@@ -52,7 +52,7 @@ const Login = () => {
             );
             if (response.status === 201) {
               dispatch(setAccessToken(response.data.access_token));
-              router.push('/forum');
+              window.location.href = '/forum';
             }
             actions.setSubmitting(false);
           }}

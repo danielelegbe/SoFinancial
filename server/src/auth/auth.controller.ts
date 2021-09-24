@@ -1,19 +1,11 @@
-import {
-  Controller,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-  Body,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guards/local.guard';
-import { Request, Response } from 'express';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/models/User';
+import { Request, Response } from 'express';
 import { NewUserDto } from 'src/users/dto/NewUserDto';
+import { User } from 'src/users/models/User';
+import { AuthService } from './auth.service';
 import { TokenRefreshService } from './auth.tokenRefreshService';
+import { LocalAuthGuard } from './guards/local.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -47,8 +39,8 @@ export class AuthController {
   @Post('refresh-token')
   async refreshAccessToken(@Req() req: Request, @Res() res: Response) {
     const token = req.cookies.jid;
-    const user: any = await this.tokenRefreshService.refreshToken(token);
-    if (!user) throw new UnauthorizedException();
+    const user = (await this.tokenRefreshService.refreshToken(token)) as User;
+    if (!user) return res.send({ ok: false, access_token: '' });
     const isValid = this.authService.login(user);
 
     if (isValid) {

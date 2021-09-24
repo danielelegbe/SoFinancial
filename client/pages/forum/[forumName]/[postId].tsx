@@ -2,14 +2,16 @@ import { Flex, Heading, Link, Text, Box, Stack } from '@chakra-ui/layout';
 import { Progress } from '@chakra-ui/progress';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { useGetPostByIdQuery } from '../../../generated/graphql';
+import { useGetPostByIdQuery, useMeQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
 import NextLink from 'next/link';
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, Button } from '@chakra-ui/react';
 import Comment from '../../../components/Comments/Comment';
-import { Comment as CommentType } from '../../../generated/graphql';
+import DeletePostModal from '../../../components/Modals/DeletePostModal';
+import AddCommentModal from '../../../components/Modals/AddCommentModal';
 
 const FullPost = () => {
+  const user = useMeQuery().data?.me;
   const router = useRouter();
   const { data, loading, error } = useGetPostByIdQuery({
     variables: { getPostByIdData: { id: Number(router.query.postId) } },
@@ -51,11 +53,16 @@ const FullPost = () => {
             </Text>
           </NextLink>
           <Avatar src={post.author?.avatar} size="xs" ml={2} />
+
+          {user?.id === post.author?.id ? (
+            <DeletePostModal postId={post.id} />
+          ) : null}
         </Flex>
       </Stack>
-      <Heading ml={12} mt={20} as="h3">
-        Comments
-      </Heading>
+      <Flex ml={12} mt={20} align="center">
+        <Heading as="h3">Comments</Heading>
+        {user && <AddCommentModal />}
+      </Flex>
       <Stack>
         {post.comments?.map((comment) => (
           <Comment key={comment.id} {...comment} />

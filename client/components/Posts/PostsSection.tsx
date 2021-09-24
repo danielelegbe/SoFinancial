@@ -9,7 +9,7 @@ const PostsSection = () => {
     fetchPolicy: 'network-only',
   });
   if (error) return <h1>Error</h1>;
-  if (!data || loading) return <Progress size="lg" isIndeterminate />;
+  if (!data || loading) return <Progress size="sm" isIndeterminate />;
   return (
     <VStack spacing={4}>
       {data.getAllPosts.map((post) => {

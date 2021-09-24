@@ -1,18 +1,15 @@
-import { Box, Flex, Link } from '@chakra-ui/layout';
-import { Heading, Progress } from '@chakra-ui/react';
+import { getDataFromTree } from '@apollo/client/react/ssr';
+import { Avatar, Box, Flex, Link, Stack, Text } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
 import { useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
-  const user = useSelector((state: RootState) => state.user);
-  const { data, loading, error } = useMeQuery();
-  if (data) console.log(data);
-
+  const { data } = useMeQuery();
+  const user = data?.me;
   return (
     <Flex as={'header'} maxH="80px" boxShadow="md" mb={5}>
       <Box p={4} pl={20}>
@@ -34,12 +31,12 @@ const Navbar = () => {
           Home
         </Link>
 
-        {!data?.me && (
+        {!user && (
           <Link as={NextLink} href="/register">
             Register
           </Link>
         )}
-        {!data?.me && (
+        {!user && (
           <Link as={NextLink} href="/login">
             Login
           </Link>
@@ -50,9 +47,15 @@ const Navbar = () => {
         <Link as={NextLink} href="/forum">
           Forum
         </Link>
+        {user ? (
+          <Stack direction="row" spacing={4} justify="center" align="center">
+            <Text>{user.username}</Text>
+            <Avatar size="sm" name={user.username} src={user.avatar} />
+          </Stack>
+        ) : null}
       </Flex>
     </Flex>
   );
 };
 
-export default withApollo(Navbar);
+export default withApollo(Navbar, { getDataFromTree });

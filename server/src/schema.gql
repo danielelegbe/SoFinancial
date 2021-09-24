@@ -42,7 +42,7 @@ type Comment {
 }
 
 type Query {
-  me: User!
+  me: User
   getProfile(id: GetProfileDto!): User!
   getAllPosts: [Post!]!
   getAllForums: [Forum!]!

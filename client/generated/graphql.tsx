@@ -100,7 +100,7 @@ export type Query = {
   getAllForums: Array<Forum>;
   getAllPosts: Array<Post>;
   getProfile: User;
-  me: User;
+  me?: Maybe<User>;
 };
 
 
@@ -126,7 +126,7 @@ export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __ty
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, username: string } };
+export type MeQuery = { __typename?: 'Query', me?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }> };
 
 
 export const GetAllPostsDocument = gql`
@@ -180,6 +180,7 @@ export const MeDocument = gql`
   me {
     id
     username
+    avatar
   }
 }
     `;

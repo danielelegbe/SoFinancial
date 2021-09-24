@@ -1,62 +1,71 @@
-import { SearchIcon } from '@chakra-ui/icons';
-import {
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Stack,
-  Box,
-} from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import type { InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import ArticleSection from '../components/Articles/ArticleSection';
 import Article from '../components/Articles/interfaces/Article';
 import PostsSection from '../components/Posts/PostsSection';
-import Search from '../components/Search';
+import Head from 'next/head';
 
 const Home = ({
   uniqueArticles,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Flex direction="column">
-      <Search />
-      {uniqueArticles.length > 0 && (
-        <ArticleSection articles={uniqueArticles} />
-      )}
-      <PostsSection />
-    </Flex>
+    <>
+      <Head>
+        <title>Home</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Flex direction="column">
+        {uniqueArticles.length > 0 && (
+          <ArticleSection articles={uniqueArticles} />
+        )}
+        <PostsSection />
+      </Flex>
+    </>
   );
 };
 
 export default Home;
 
 export const getStaticProps = async () => {
+  //Option 1
+  // const options: AxiosRequestConfig = {
+  //   method: 'GET',
+  //   url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+  //   params: { topic: 'business', lang: 'en', media: 'True' },
+  //   headers: {
+  //     'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+  //     'x-rapidapi-key': process.env.RAPID_API_KEY,
+  //   },
+  // };
+
+  //Option 2
   const options: AxiosRequestConfig = {
     method: 'GET',
-    url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
-    params: { topic: 'finance', lang: 'en', media: 'True' },
+    url: 'https://api.newscatcherapi.com/v2/latest_headlines',
+    params: { topic: 'finance', lang: 'en' },
     headers: {
-      'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
-      'x-rapidapi-key': process.env.NEWS_API_KEY,
+      'x-api-key': process.env.TRIAL_API_KEY,
     },
   };
 
   const articles = (await axios.request(options)).data.articles;
 
   const seen = new Set();
-  const uniqueArticles: Article[] = articles.filter((el: Article) => {
-    if (!el.author) return false;
-    if (!el.media) return false;
-    if (!el.link) return false;
-    const duplicate = seen.has(el.media);
-    seen.add(el.media);
-    return !duplicate;
-  });
+  const uniqueArticles: Article[] = articles
+    .filter((el: Article) => {
+      // if (!el.author) return false (testing, may add in future)
+      if (!el.media) return false;
+      if (!el.link) return false;
+      const duplicate = seen.has(el.media);
+      seen.add(el.media);
+      return !duplicate;
+    })
+    .slice(0, 4);
 
   return {
     props: { uniqueArticles },
-    revalidate: 10,
+    revalidate: 60,
   };
 };

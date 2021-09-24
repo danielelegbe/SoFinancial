@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import { useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
+import Search from '../Search/Search';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -62,6 +63,7 @@ const Navbar = () => {
             <Avatar size="sm" name={user.username} src={user.avatar} />
           </Stack>
         ) : null}
+        <Search />
       </Flex>
     </Flex>
   );

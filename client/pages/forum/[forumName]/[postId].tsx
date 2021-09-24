@@ -61,9 +61,9 @@ const FullPost = () => {
       </Stack>
       <Flex ml={12} mt={20} align="center">
         <Heading as="h3">Comments</Heading>
-        {user && <AddCommentModal />}
+        {user && <AddCommentModal postId={post.id} />}
       </Flex>
-      <Stack>
+      <Stack spacing={10}>
         {post.comments?.map((comment) => (
           <Comment key={comment.id} {...comment} />
         ))}

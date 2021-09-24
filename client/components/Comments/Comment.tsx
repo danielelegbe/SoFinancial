@@ -1,7 +1,7 @@
-import { Avatar, Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Stack, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 import { Maybe } from '../../generated/graphql';
-import Link from 'next/link';
 interface CommentType {
   __typename?: 'Comment' | undefined;
   id: number;
@@ -18,7 +18,6 @@ interface CommentType {
 }
 
 const Comment = (comment: CommentType) => {
-  console.log(comment);
   return (
     <Stack spacing={20} p={12} pb={8} mt="20" boxShadow="md" bgColor="gray.50">
       <Box>{comment.content}</Box>

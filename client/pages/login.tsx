@@ -53,6 +53,7 @@ const Login = () => {
               dispatch(setAccessToken(response.data.access_token));
               window.location.href = '/forum';
             }
+
             actions.setSubmitting(false);
           }}
         >
@@ -76,7 +77,7 @@ const Login = () => {
                     w="30%"
                     alignSelf="center"
                   >
-                    Submit
+                    Login
                   </Button>
                 </Stack>
               </Form>

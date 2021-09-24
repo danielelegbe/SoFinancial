@@ -60,6 +60,7 @@ input QueryPostInput {
 
 type Mutation {
   createPost(newPostInput: NewPostInput!): Post!
+  deletePost(id: Int!): Boolean!
   createForum(newForumInput: NewForumInput!): Forum!
   createComment(createCommentInput: CreateCommentInput!): Comment!
   deleteComment(id: DeleteCommentInput!): Comment!

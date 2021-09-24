@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import {
   Args,
+  Int,
   Mutation,
   Query,
   ResolveField,
@@ -98,5 +99,16 @@ export class PostsResolver {
     const post = await this.postsService.findPost(data.id);
     if (!post) throw new NotFoundException('Post not found');
     return post;
+  }
+
+  @UseGuards(GQLAuthGuard)
+  @Mutation(() => Boolean)
+  async deletePost(
+    @Args('id', { type: () => Int }) postId: number,
+    @CurrentUser() user: User,
+  ) {
+    const isValid = await this.postsService.deletePost(postId, user.id);
+    if (!isValid) return new UnauthorizedException('unauthorized');
+    return true;
   }
 }

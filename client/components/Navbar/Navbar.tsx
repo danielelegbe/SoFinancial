@@ -54,9 +54,14 @@ const Navbar = () => {
         </Link>
         {user ? (
           <Stack direction="row" spacing={4} justify="center" align="center">
-            <Text _hover={{ textDecoration: 'underline', cursor: 'pointer' }}>
-              {user.username}
-            </Text>
+            <NextLink href={`/users/${user.username}`}>
+              <Text
+                _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                as="a"
+              >
+                {user.username}
+              </Text>
+            </NextLink>
             <Avatar size="sm" name={user.username} src={user.avatar} />
           </Stack>
         ) : null}

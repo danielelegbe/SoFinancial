@@ -24,7 +24,7 @@ const ForumName = () => {
       getForumName: forumName as string,
     },
   });
-  if (!data || loading) return <Progress />;
+  if (!data || loading) return <Progress size="sm" isIndeterminate />;
   if (data.getForum == null) {
     return (
       <Heading p={8}>

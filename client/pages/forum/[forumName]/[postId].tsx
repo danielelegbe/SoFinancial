@@ -1,16 +1,20 @@
-import { Heading, Link, Text } from '@chakra-ui/layout';
+import { Flex, Heading, Link, Text, Box, Stack } from '@chakra-ui/layout';
 import { Progress } from '@chakra-ui/progress';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetPostByIdQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
 import NextLink from 'next/link';
+import { Avatar } from '@chakra-ui/react';
+import Comment from '../../../components/Comments/Comment';
+import { Comment as CommentType } from '../../../generated/graphql';
 
 const FullPost = () => {
   const router = useRouter();
   const { data, loading, error } = useGetPostByIdQuery({
     variables: { getPostByIdData: { id: Number(router.query.postId) } },
   });
+
   if (error) {
     return (
       <Heading p={8}>
@@ -28,9 +32,37 @@ const FullPost = () => {
     );
   }
 
-  if (!data || loading) return <Progress />;
-
-  return <div>{JSON.stringify(data)}</div>;
+  if (!data || loading) return <Progress size="sm" isIndeterminate />;
+  const post = data.getPostById!;
+  return (
+    <Box>
+      <Stack spacing={20} px={12} pb={8} mt="20" boxShadow="md">
+        <Stack>
+          <Heading textColor="blue.700">{post.title}</Heading>
+        </Stack>
+        <Box>{post.content}</Box>
+        <Flex align="center">
+          <NextLink href={`/users/${post.author?.username}`} passHref>
+            <Text
+              as="a"
+              _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+            >
+              Posted by - {post.author?.username}
+            </Text>
+          </NextLink>
+          <Avatar src={post.author?.avatar} size="xs" ml={2} />
+        </Flex>
+      </Stack>
+      <Heading ml={12} mt={20} as="h3">
+        Comments
+      </Heading>
+      <Stack>
+        {post.comments?.map((comment) => (
+          <Comment key={comment.id} {...comment} />
+        ))}
+      </Stack>
+    </Box>
+  );
 };
 
 export default withApollo(FullPost);

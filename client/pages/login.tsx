@@ -44,7 +44,6 @@ const Login = () => {
           initialValues={{ username: '', password: '' }}
           //   validate={validationSchema}
           onSubmit={async (values, actions) => {
-            console.log(values);
             const response = await axios.post(
               'http://localhost:4000/auth/login',
               values,

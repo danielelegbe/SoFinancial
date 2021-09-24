@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  NotFoundException,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -13,14 +14,15 @@ import {
 } from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
-import { ForumService } from 'src/forum/forum.service';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Forum } from 'src/forum/models/Forum';
-import { User } from 'src/users/models/User';
-import { Post } from './models/Post';
 import { Comment } from 'src/comments/models/Comment';
+import { ForumService } from 'src/forum/forum.service';
+import { Forum } from 'src/forum/models/Forum';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from 'src/users/models/User';
 import { UsersService } from 'src/users/users.service';
 import { NewPostInput } from './dto/NewPostInput';
+import { QueryPostInput } from './dto/QueryPostInput';
+import { Post } from './models/Post';
 import { PostsService } from './posts.service';
 
 @Resolver(Post)
@@ -63,9 +65,6 @@ export class PostsResolver {
     @Args('newPostInput') newPostInput: NewPostInput,
     @CurrentUser() user: User,
   ) {
-    // const author = await this.prisma.user.findUnique({
-    //   where: { id: user.id },
-    // });
     const author = await this.usersService.findUserById(user.id);
 
     if (!author)
@@ -92,5 +91,12 @@ export class PostsResolver {
   @Query(() => [Post])
   async getAllPosts() {
     return this.postsService.getAllPosts();
+  }
+
+  @Query(() => Post, { nullable: true })
+  async getPostById(@Args('data') data: QueryPostInput): Promise<Post> {
+    const post = await this.postsService.findPost(data.id);
+    if (!post) throw new NotFoundException('Post not found');
+    return post;
   }
 }

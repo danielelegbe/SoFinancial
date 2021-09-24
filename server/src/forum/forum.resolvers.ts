@@ -41,4 +41,9 @@ export class ForumResolver {
   async getAllForums(): Promise<Forum[]> {
     return this.forumService.getAllForums();
   }
+
+  @Query(() => Forum, { nullable: true })
+  async getForum(@Args('name') name: string): Promise<Forum> {
+    return this.forumService.getForumByName(name);
+  }
 }

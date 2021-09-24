@@ -9,6 +9,7 @@ query GetAllPosts {
     }
     author {
       username
+      avatar
     }
     forum {
       name

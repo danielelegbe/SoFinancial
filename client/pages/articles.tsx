@@ -7,16 +7,7 @@ import Article from '../components/Articles/interfaces/Article';
 
 const Articles = ({
   uniqueArticles,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  //   console.log(unique);
-  //   return (
-  //     <Box>
-  //       {uniqueArticles.map((article) => (
-  //         <ArticleCard key={article.id} {...article} />
-  //       ))}
-  //     </Box>
-  //   );
-};
+}: InferGetStaticPropsType<typeof getStaticProps>) => {};
 
 export default Articles;
 

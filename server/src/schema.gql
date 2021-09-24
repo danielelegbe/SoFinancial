@@ -45,11 +45,17 @@ type Query {
   me: User
   getProfile(id: GetProfileDto!): User!
   getAllPosts: [Post!]!
+  getPostById(data: QueryPostInput!): Post
   getAllForums: [Forum!]!
+  getForum(name: String!): Forum
 }
 
 input GetProfileDto {
   id: Int!
+}
+
+input QueryPostInput {
+  id: Int
 }
 
 type Mutation {

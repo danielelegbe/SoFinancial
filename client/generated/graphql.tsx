@@ -99,13 +99,29 @@ export type Query = {
   __typename?: 'Query';
   getAllForums: Array<Forum>;
   getAllPosts: Array<Post>;
+  getForum?: Maybe<Forum>;
+  getPostById?: Maybe<Post>;
   getProfile: User;
   me?: Maybe<User>;
 };
 
 
+export type QueryGetForumArgs = {
+  name: Scalars['String'];
+};
+
+
+export type QueryGetPostByIdArgs = {
+  data: QueryPostInput;
+};
+
+
 export type QueryGetProfileArgs = {
   id: GetProfileDto;
+};
+
+export type QueryPostInput = {
+  id?: Maybe<Scalars['Int']>;
 };
 
 export type User = {
@@ -121,7 +137,21 @@ export type User = {
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, comments?: Maybe<Array<{ __typename?: 'Comment', id: number }>>, author?: Maybe<{ __typename?: 'User', username: string }>, forum?: Maybe<{ __typename?: 'Forum', name: string }> }> };
+export type GetAllPostsQuery = { __typename?: 'Query', getAllPosts: Array<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, comments?: Maybe<Array<{ __typename?: 'Comment', id: number }>>, author?: Maybe<{ __typename?: 'User', username: string, avatar: string }>, forum?: Maybe<{ __typename?: 'Forum', name: string }> }> };
+
+export type GetForumQueryVariables = Exact<{
+  getForumName: Scalars['String'];
+}>;
+
+
+export type GetForumQuery = { __typename?: 'Query', getForum?: Maybe<{ __typename?: 'Forum', id: number, createdAt: any, name: string, posts?: Maybe<Array<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, forum?: Maybe<{ __typename?: 'Forum', name: string }>, author?: Maybe<{ __typename?: 'User', id: number, email: string, username: string, avatar: string }>, comments?: Maybe<Array<{ __typename?: 'Comment', id: number }>> }>> }> };
+
+export type GetPostByIdQueryVariables = Exact<{
+  getPostByIdData: QueryPostInput;
+}>;
+
+
+export type GetPostByIdQuery = { __typename?: 'Query', getPostById?: Maybe<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }>, comments?: Maybe<Array<{ __typename?: 'Comment', id: number, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }> }>> }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -141,6 +171,7 @@ export const GetAllPostsDocument = gql`
     }
     author {
       username
+      avatar
     }
     forum {
       name
@@ -175,6 +206,114 @@ export function useGetAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetAllPostsQueryHookResult = ReturnType<typeof useGetAllPostsQuery>;
 export type GetAllPostsLazyQueryHookResult = ReturnType<typeof useGetAllPostsLazyQuery>;
 export type GetAllPostsQueryResult = Apollo.QueryResult<GetAllPostsQuery, GetAllPostsQueryVariables>;
+export const GetForumDocument = gql`
+    query GetForum($getForumName: String!) {
+  getForum(name: $getForumName) {
+    id
+    createdAt
+    name
+    posts {
+      id
+      title
+      content
+      createdAt
+      forum {
+        name
+      }
+      author {
+        id
+        email
+        username
+        avatar
+      }
+      comments {
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetForumQuery__
+ *
+ * To run a query within a React component, call `useGetForumQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetForumQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetForumQuery({
+ *   variables: {
+ *      getForumName: // value for 'getForumName'
+ *   },
+ * });
+ */
+export function useGetForumQuery(baseOptions: Apollo.QueryHookOptions<GetForumQuery, GetForumQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetForumQuery, GetForumQueryVariables>(GetForumDocument, options);
+      }
+export function useGetForumLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetForumQuery, GetForumQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetForumQuery, GetForumQueryVariables>(GetForumDocument, options);
+        }
+export type GetForumQueryHookResult = ReturnType<typeof useGetForumQuery>;
+export type GetForumLazyQueryHookResult = ReturnType<typeof useGetForumLazyQuery>;
+export type GetForumQueryResult = Apollo.QueryResult<GetForumQuery, GetForumQueryVariables>;
+export const GetPostByIdDocument = gql`
+    query GetPostById($getPostByIdData: QueryPostInput!) {
+  getPostById(data: $getPostByIdData) {
+    id
+    title
+    content
+    createdAt
+    author {
+      id
+      username
+      avatar
+    }
+    comments {
+      id
+      content
+      createdAt
+      author {
+        id
+        username
+        avatar
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostByIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostByIdQuery({
+ *   variables: {
+ *      getPostByIdData: // value for 'getPostByIdData'
+ *   },
+ * });
+ */
+export function useGetPostByIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+      }
+export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostByIdQuery, GetPostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, options);
+        }
+export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
+export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
+export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

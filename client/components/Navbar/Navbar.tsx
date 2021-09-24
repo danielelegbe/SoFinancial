@@ -14,7 +14,12 @@ const Navbar = () => {
     <Flex as={'header'} maxH="80px" boxShadow="md" mb={5}>
       <Box p={4} pl={20}>
         <Link as={NextLink} href="/">
-          <Heading textDecor="underline" size="xl" as="h1">
+          <Heading
+            textDecor="underline"
+            _hover={{ cursor: 'pointer' }}
+            size="xl"
+            as="h1"
+          >
             SoFinancial
           </Heading>
         </Link>
@@ -49,7 +54,9 @@ const Navbar = () => {
         </Link>
         {user ? (
           <Stack direction="row" spacing={4} justify="center" align="center">
-            <Text>{user.username}</Text>
+            <Text _hover={{ textDecoration: 'underline', cursor: 'pointer' }}>
+              {user.username}
+            </Text>
             <Avatar size="sm" name={user.username} src={user.avatar} />
           </Stack>
         ) : null}

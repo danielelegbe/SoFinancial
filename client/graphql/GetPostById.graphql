@@ -1,0 +1,23 @@
+query GetPostById($getPostByIdData: QueryPostInput!) {
+  getPostById(data: $getPostByIdData) {
+    id
+    title
+    content
+    createdAt
+    author {
+      id
+      username
+      avatar
+    }
+    comments {
+      id
+      content
+      createdAt
+      author {
+        id
+        username
+        avatar
+      }
+    }
+  }
+}

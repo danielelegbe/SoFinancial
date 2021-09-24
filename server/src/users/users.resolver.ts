@@ -8,6 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { GetProfileDto } from './dto/GetProfileDto';
 import { User } from './models/User';
 import { UsersService } from './users.service';
+
 @Resolver(User)
 export class UsersResolver {
   constructor(

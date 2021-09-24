@@ -1,8 +1,8 @@
-import { Flex, Image, Text } from '@chakra-ui/react';
+import { Flex, Image, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import Article from './interfaces/Article';
 
-const ArticleCard = ({ author, link, title, media }: Article) => {
+const ArticleCard = ({ author, link, title, media, rights }: Article) => {
   return (
     <Flex
       _hover={{
@@ -35,9 +35,14 @@ const ArticleCard = ({ author, link, title, media }: Article) => {
       <Text textAlign="center" px={3}>
         {title}
       </Text>
-      <Text fontWeight="bold" textAlign="center" position="relative">
-        {author}
-      </Text>
+      <Stack>
+        <Text fontWeight="bold" textAlign="center">
+          {author}
+        </Text>
+        <Text fontWeight="bold" textAlign="center">
+          {rights}
+        </Text>
+      </Stack>
     </Flex>
   );
 };

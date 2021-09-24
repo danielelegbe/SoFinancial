@@ -31,7 +31,9 @@ const Home = ({
           />
         </InputGroup>
       </Stack>
-      {uniqueArticles && <ArticleSection articles={uniqueArticles} />}
+      {uniqueArticles.length > 0 && (
+        <ArticleSection articles={uniqueArticles} />
+      )}
       <PostsSection />
     </Flex>
   );
@@ -42,8 +44,8 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   const options: AxiosRequestConfig = {
     method: 'GET',
-    url: 'https://newscatcher.p.rapidapi.com/v1/search_free',
-    params: { q: 'finance', lang: 'en', media: 'True' },
+    url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+    params: { topic: 'finance', lang: 'en', media: 'True' },
     headers: {
       'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
       'x-rapidapi-key': process.env.NEWS_API_KEY,
@@ -53,16 +55,15 @@ export const getStaticProps: GetStaticProps = async () => {
   const articles = (await axios.request(options)).data.articles;
 
   const seen = new Set();
-  const uniqueArticles: Article[] = articles
-    .filter((el: Article) => {
-      if (!el.author) return false;
-      if (!el.media) return false;
-      if (!el.link) return false;
-      const duplicate = seen.has(el.media);
-      seen.add(el.media);
-      return !duplicate;
-    })
-    .slice(0, 6);
+  const uniqueArticles: Article[] = articles.filter((el: Article) => {
+    if (!el.author) return false;
+    if (!el.media) return false;
+    if (!el.link) return false;
+    const duplicate = seen.has(el.media);
+    seen.add(el.media);
+    return !duplicate;
+  });
+
   if (!uniqueArticles)
     return {
       notFound: true,

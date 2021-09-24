@@ -1,5 +1,6 @@
 import { ChatIcon } from '@chakra-ui/icons';
 import {
+  Avatar,
   Box,
   Flex,
   Heading,
@@ -10,8 +11,10 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { GetAllPostsQuery } from '../../generated/graphql';
+import Link from 'next/link';
 
 const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
+  console.log(post);
   return (
     <Flex
       borderRadius="md"
@@ -24,17 +27,38 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
       justify="space-between"
       align="flex-start"
     >
-      <Text size="md" fontWeight="bold">
-        {post.forum?.name}
-      </Text>
-      <Heading size="lg" color="blue.700">
-        {post.title}
-      </Heading>
+      {post.forum?.name && (
+        <Link href={`/forum/${post.forum.name}`} passHref>
+          <Text
+            as="a"
+            size="md"
+            fontWeight="bold"
+            _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+          >
+            {post.forum.name}
+          </Text>
+        </Link>
+      )}
+      <Link href={`/forum/${post.forum?.name}/${post.id}`} passHref>
+        <Heading size="lg" color="blue.700" as="a">
+          {post.title}
+        </Heading>
+      </Link>
       <Box as="section" maxH="50%" overflow="hidden">
         <Text>{post.content}</Text>
       </Box>
       <Flex w="50%" maxW="80%" justify="space-between">
-        <Text flex={1}>Posted by - {post.author?.username}</Text>
+        <Stack
+          direction="row"
+          spacing={2}
+          mr={4}
+          align="center"
+          justify="center"
+        >
+          <Text flex={1}>Posted by - {post.author?.username}</Text>
+          <Avatar src={post.author?.avatar} size="xs" />
+        </Stack>
+
         {post.comments && (
           <HStack flex={1} spacing={2} align="center">
             <ChatIcon />

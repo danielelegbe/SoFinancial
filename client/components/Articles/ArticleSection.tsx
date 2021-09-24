@@ -5,6 +5,7 @@ import Article from './interfaces/Article';
 
 const ArticleSection = (props: any) => {
   const articles: Article[] = props.articles;
+  console.log(articles);
   return (
     <Flex direction="column" align="center" w="75%" mx="auto">
       <Heading as="h3" size="lg" textAlign="center">
@@ -17,14 +18,8 @@ const ArticleSection = (props: any) => {
         mx="auto"
         flexWrap="wrap"
       >
-        {articles.map(({ _id, link, media, title, author }) => (
-          <ArticleCard
-            key={_id}
-            author={author}
-            link={link}
-            title={title}
-            media={media}
-          />
+        {articles.map((article) => (
+          <ArticleCard key={article._id} {...article} />
         ))}
       </Flex>
     </Flex>

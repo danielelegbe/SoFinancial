@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Post } from './models/Post';
 
@@ -9,7 +9,7 @@ export class PostsService {
   async findPost(postId: number): Promise<Post> {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
 
-    if (!post) throw new BadRequestException('post not found');
+    if (!post) return null;
     return post;
   }
 

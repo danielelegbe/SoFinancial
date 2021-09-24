@@ -1,0 +1,25 @@
+query GetForum($getForumName: String!) {
+  getForum(name: $getForumName) {
+    id
+    createdAt
+    name
+    posts {
+      id
+      title
+      content
+      createdAt
+      forum {
+        name
+      }
+      author {
+        id
+        email
+        username
+        avatar
+      }
+      comments {
+        id
+      }
+    }
+  }
+}

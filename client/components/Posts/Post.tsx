@@ -14,7 +14,6 @@ import { GetAllPostsQuery } from '../../generated/graphql';
 import Link from 'next/link';
 
 const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
-  console.log(post);
   return (
     <Flex
       borderRadius="md"
@@ -40,7 +39,12 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
         </Link>
       )}
       <Link href={`/forum/${post.forum?.name}/${post.id}`} passHref>
-        <Heading size="lg" color="blue.700" as="a">
+        <Heading
+          size="lg"
+          color="blue.700"
+          as="a"
+          _hover={{ textDecoration: 'underline' }}
+        >
           {post.title}
         </Heading>
       </Link>
@@ -55,7 +59,11 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
           align="center"
           justify="center"
         >
-          <Text flex={1}>Posted by - {post.author?.username}</Text>
+          <Link href={`/users/${post.author?.username}`} passHref>
+            <Text flex={1} as="a" _hover={{ textDecoration: 'underline' }}>
+              Posted by - {post.author?.username}
+            </Text>
+          </Link>
           <Avatar src={post.author?.avatar} size="xs" />
         </Stack>
 

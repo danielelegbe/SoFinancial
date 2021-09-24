@@ -5,32 +5,23 @@ import {
   InputGroup,
   InputLeftElement,
   Stack,
+  Box,
 } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import React from 'react';
+import type { InferGetStaticPropsType } from 'next';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import ArticleSection from '../components/Articles/ArticleSection';
 import Article from '../components/Articles/interfaces/Article';
 import PostsSection from '../components/Posts/PostsSection';
+import Search from '../components/Search';
 
 const Home = ({
   uniqueArticles,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Flex direction="column">
-      <Stack spacing={12} justify="center" direction="row" my={8}>
-        <InputGroup w="30%">
-          <InputLeftElement>
-            <SearchIcon color="blackAlpha.500" />
-          </InputLeftElement>
-          <Input
-            borderColor="blackAlpha.500"
-            bgColor="gray.50"
-            textColor="blackAlpha.700"
-            placeholder="Search for a topic"
-          />
-        </InputGroup>
-      </Stack>
+      <Search />
       {uniqueArticles.length > 0 && (
         <ArticleSection articles={uniqueArticles} />
       )}
@@ -41,7 +32,7 @@ const Home = ({
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const options: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
@@ -63,11 +54,6 @@ export const getStaticProps: GetStaticProps = async () => {
     seen.add(el.media);
     return !duplicate;
   });
-
-  if (!uniqueArticles)
-    return {
-      notFound: true,
-    };
 
   return {
     props: { uniqueArticles },

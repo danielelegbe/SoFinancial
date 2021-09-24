@@ -46,9 +46,6 @@ const Navbar = () => {
             Login
           </Link>
         )}
-        <Link as={NextLink} href="/articles">
-          Articles
-        </Link>
         <Link as={NextLink} href="/forum">
           Forum
         </Link>

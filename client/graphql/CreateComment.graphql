@@ -1,0 +1,11 @@
+mutation CreateComment($createCommentCreateCommentInput: CreateCommentInput!) {
+  createComment(createCommentInput: $createCommentCreateCommentInput) {
+    id
+    content
+
+    author {
+      username
+      avatar
+    }
+  }
+}

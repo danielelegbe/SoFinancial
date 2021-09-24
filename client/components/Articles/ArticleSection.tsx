@@ -1,14 +1,24 @@
-import { Flex, Heading } from '@chakra-ui/layout';
+import { Box, Flex, Heading } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React from 'react';
+import Search from '../Search';
 import ArticleCard from './ArticleCard';
 import Article from './interfaces/Article';
 
-const ArticleSection = (props: any) => {
-  const articles: Article[] = props.articles;
+interface PropTypes {
+  articles: Article[];
+}
+const ArticleSection = ({ articles }: PropTypes) => {
+  const router = useRouter();
   return (
     <Flex direction="column" align="center" w="75%" mx="auto">
-      <Heading as="h3" size="lg" textAlign="center">
-        Articles
+      <Heading
+        style={{ textTransform: 'capitalize' }}
+        as="h3"
+        size="lg"
+        textAlign="center"
+      >
+        {router.query.search}
       </Heading>
       <Flex
         direction="row"

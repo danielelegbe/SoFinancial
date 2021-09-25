@@ -1,10 +1,9 @@
 import { HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { onError } from '@apollo/client/link/error';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
-import { store } from './app/store';
-import { setAccessToken } from './features/user/userSlice';
+import { store } from '../app/store';
+import { setAccessToken } from '../features/user/userSlice';
 
 export const tokenRefreshLink = new TokenRefreshLink({
   accessTokenField: 'access_token',

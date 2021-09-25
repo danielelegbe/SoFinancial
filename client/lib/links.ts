@@ -1,7 +1,6 @@
 import { HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
-import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { store } from '../app/store';
 import { setAccessToken } from '../features/user/userSlice';

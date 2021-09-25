@@ -2,18 +2,17 @@ import { ChatIcon } from '@chakra-ui/icons';
 import {
   Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
-  useDisclosure,
+  ModalHeader,
+  ModalOverlay,
   Textarea,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {
-  GetAllPostsDocument,
   GetPostByIdDocument,
   useCreateCommentMutation,
 } from '../../generated/graphql';

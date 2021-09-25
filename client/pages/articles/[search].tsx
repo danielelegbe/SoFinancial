@@ -5,7 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 import ArticleSection from '../../components/Articles/ArticleSection';
 import Article from '../../components/Articles/interfaces/Article';
-import Search from '../../components/Search/Search';
+import Search from '../../components/Search/SearchArticle';
 
 const ArticleSearchPage = ({
   uniqueArticles,

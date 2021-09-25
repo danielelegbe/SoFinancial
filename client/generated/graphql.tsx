@@ -49,7 +49,7 @@ export type GetProfileDto = {
 export type Mutation = {
   __typename?: 'Mutation';
   createComment: Comment;
-  createForum: Forum;
+  createForum: Scalars['Boolean'];
   createPost: Post;
   deleteComment: Scalars['Boolean'];
   deletePost: Scalars['Boolean'];
@@ -147,6 +147,13 @@ export type CreateCommentMutationVariables = Exact<{
 
 export type CreateCommentMutation = { __typename?: 'Mutation', createComment: { __typename?: 'Comment', id: number, content: string, author?: Maybe<{ __typename?: 'User', username: string, avatar: string }> } };
 
+export type CreateForumMutationVariables = Exact<{
+  createForumNewForumInput: NewForumInput;
+}>;
+
+
+export type CreateForumMutation = { __typename?: 'Mutation', createForum: boolean };
+
 export type DeleteCommentMutationVariables = Exact<{
   deleteCommentData: DeleteCommentInput;
 }>;
@@ -224,6 +231,37 @@ export function useCreateCommentMutation(baseOptions?: Apollo.MutationHookOption
 export type CreateCommentMutationHookResult = ReturnType<typeof useCreateCommentMutation>;
 export type CreateCommentMutationResult = Apollo.MutationResult<CreateCommentMutation>;
 export type CreateCommentMutationOptions = Apollo.BaseMutationOptions<CreateCommentMutation, CreateCommentMutationVariables>;
+export const CreateForumDocument = gql`
+    mutation CreateForum($createForumNewForumInput: NewForumInput!) {
+  createForum(newForumInput: $createForumNewForumInput)
+}
+    `;
+export type CreateForumMutationFn = Apollo.MutationFunction<CreateForumMutation, CreateForumMutationVariables>;
+
+/**
+ * __useCreateForumMutation__
+ *
+ * To run a mutation, you first call `useCreateForumMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateForumMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createForumMutation, { data, loading, error }] = useCreateForumMutation({
+ *   variables: {
+ *      createForumNewForumInput: // value for 'createForumNewForumInput'
+ *   },
+ * });
+ */
+export function useCreateForumMutation(baseOptions?: Apollo.MutationHookOptions<CreateForumMutation, CreateForumMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateForumMutation, CreateForumMutationVariables>(CreateForumDocument, options);
+      }
+export type CreateForumMutationHookResult = ReturnType<typeof useCreateForumMutation>;
+export type CreateForumMutationResult = Apollo.MutationResult<CreateForumMutation>;
+export type CreateForumMutationOptions = Apollo.BaseMutationOptions<CreateForumMutation, CreateForumMutationVariables>;
 export const DeleteCommentDocument = gql`
     mutation DeleteComment($deleteCommentData: DeleteCommentInput!) {
   deleteComment(data: $deleteCommentData)

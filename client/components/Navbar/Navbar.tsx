@@ -1,14 +1,28 @@
 import { getDataFromTree } from '@apollo/client/react/ssr';
-import { Avatar, Box, Flex, Link, Stack, Text } from '@chakra-ui/react';
+import { Avatar, Box, Button, Flex, Link, Stack, Text } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
+import axios from 'axios';
 import NextLink from 'next/link';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from '../../features/user/userSlice';
 import { useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
-import Search from '../Search/Search';
+import Search from '../Search/SearchArticle';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const logoutHandler = async () => {
+    const response = await axios.get('http://localhost:4000/auth/logout', {
+      withCredentials: true,
+    });
+    const { access_token } = response.data;
+
+    dispatch(setAccessToken(access_token));
+    window.location.href = '/';
+  };
+
   const { data } = useMeQuery();
   const user = data?.me;
   return (
@@ -64,6 +78,11 @@ const Navbar = () => {
           </Stack>
         ) : null}
         <Search />
+        {user && (
+          <Button onClick={logoutHandler} size="sm">
+            Logout
+          </Button>
+        )}
       </Flex>
     </Flex>
   );

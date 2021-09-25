@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
-const Search = () => {
+const SearchArticle = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
@@ -34,4 +34,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchArticle;

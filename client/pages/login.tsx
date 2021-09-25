@@ -1,34 +1,18 @@
-import {
-  Stack,
-  Text,
-  Flex,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Box,
-} from '@chakra-ui/react';
-import * as Yup from 'yup';
+import { Box, Button, Flex, Input, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
-import { Formik, Form, Field } from 'formik';
+import { Field, Form, Formik } from 'formik';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { setAccessToken } from '../features/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMeQuery } from '../generated/graphql';
 import { RootState } from '../app/store';
-import Head from 'next/head';
+import { setAccessToken } from '../features/user/userSlice';
 
 const Login = () => {
   const { access_token } = useSelector((state: RootState) => state.user);
   const router = useRouter();
   if (access_token) router.push('/');
   const dispatch = useDispatch();
-  const validationSchema = Yup.object({
-    username: Yup.string().required(),
-    password: Yup.string().required(),
-  });
 
   return (
     <>
@@ -52,7 +36,7 @@ const Login = () => {
           </Text>
           <Formik
             initialValues={{ username: '', password: '' }}
-            //   validate={validationSchema}
+            // validate={validationSchema}
             onSubmit={async (values, actions) => {
               const response = await axios.post(
                 'http://localhost:4000/auth/login',

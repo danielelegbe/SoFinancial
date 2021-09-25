@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { NewUserDto } from 'src/users/dto/NewUserDto';
@@ -36,6 +44,7 @@ export class AuthController {
       return res.json(isValid);
     }
   }
+
   @Post('refresh-token')
   async refreshAccessToken(@Req() req: Request, @Res() res: Response) {
     const token = req.cookies.jid;
@@ -52,7 +61,19 @@ export class AuthController {
       this.refreshCookie(res, payload);
       return res.json(isValid);
     }
-    // console.log(user);
+  }
+
+  @Get('logout')
+  async logout(@Res() res: Response) {
+    res.cookie('jid', '', {
+      maxAge: 0,
+      httpOnly: true,
+    });
+
+    res.send({
+      ok: true,
+      access_token: '',
+    });
   }
 
   private refreshCookie(

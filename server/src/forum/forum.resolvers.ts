@@ -27,14 +27,15 @@ export class ForumResolver {
   }
 
   @UseGuards(GQLAuthGuard)
-  @Mutation(() => Forum)
+  @Mutation(() => Boolean)
   async createForum(
     @Args('newForumInput') { name }: NewForumInput,
-  ): Promise<Forum> {
+  ): Promise<boolean> {
     const foundForum = await this.forumService.getForumByName(name);
     if (foundForum) throw new BadRequestException('Forum already exists');
 
-    return this.forumService.createForum(name);
+    await this.forumService.createForum(name);
+    return true;
   }
 
   @Query(() => [Forum])

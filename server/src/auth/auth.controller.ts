@@ -34,10 +34,8 @@ export class AuthController {
         sub: user.id,
       };
 
-      const { access_token } = isValid;
-
       this.refreshCookie(res, payload);
-      res.json({ ...user, access_token });
+      res.json({ ...user, ...isValid });
     }
   }
 

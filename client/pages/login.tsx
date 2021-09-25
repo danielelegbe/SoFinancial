@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../features/user/userSlice';
+import Image from 'next/image';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,12 +27,12 @@ const Login = () => {
           align="center"
           direction="column"
         >
+          <Image src="/forex.png" alt="forex icon" width="100%" height="100%" />
           <Text textAlign="center" fontSize="3xl" fontWeight="bold">
             Login
           </Text>
           <Formik
             initialValues={{ username: '', password: '' }}
-            // validate={validationSchema}
             onSubmit={async (values, actions) => {
               const response = await axios.post(
                 'http://localhost:4000/auth/login',

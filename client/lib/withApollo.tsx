@@ -6,7 +6,7 @@ import {
 } from '@apollo/client';
 import nextWithApollo from 'next-with-apollo';
 import { useRouter } from 'next/router';
-import { tokenRefreshLink, authLink, httpLink } from '../links';
+import { tokenRefreshLink, authLink, httpLink } from './links';
 
 const withApollo = nextWithApollo(
   ({ initialState, headers }) => {

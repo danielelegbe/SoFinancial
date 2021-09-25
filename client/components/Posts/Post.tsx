@@ -7,7 +7,6 @@ import {
   HStack,
   Stack,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 import React from 'react';
 import { GetAllPostsQuery } from '../../generated/graphql';

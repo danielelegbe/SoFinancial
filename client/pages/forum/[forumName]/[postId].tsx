@@ -1,15 +1,15 @@
-import { Flex, Heading, Link, Text, Box, Stack } from '@chakra-ui/layout';
+import { Box, Flex, Heading, Link, Stack, Text } from '@chakra-ui/layout';
 import { Progress } from '@chakra-ui/progress';
+import { Avatar } from '@chakra-ui/react';
+import Head from 'next/head';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import Comment from '../../../components/Comments/Comment';
+import AddCommentModal from '../../../components/Modals/AddCommentModal';
+import DeletePostModal from '../../../components/Modals/DeletePostModal';
 import { useGetPostByIdQuery, useMeQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
-import NextLink from 'next/link';
-import { Avatar, Button } from '@chakra-ui/react';
-import Comment from '../../../components/Comments/Comment';
-import DeletePostModal from '../../../components/Modals/DeletePostModal';
-import AddCommentModal from '../../../components/Modals/AddCommentModal';
-import Head from 'next/head';
 
 const FullPost = () => {
   const user = useMeQuery().data?.me;
@@ -53,7 +53,7 @@ const FullPost = () => {
 
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Box>
+      <Box mx="auto" w="70%">
         <Stack spacing={20} px={12} pb={8} mt="20" boxShadow="md">
           <Stack>
             <Heading textColor="blue.700">{post.title}</Heading>

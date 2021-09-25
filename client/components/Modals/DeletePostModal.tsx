@@ -14,7 +14,6 @@ import React from 'react';
 import {
   GetForumDocument,
   useDeletePostMutation,
-  useMeQuery,
 } from '../../generated/graphql';
 
 interface PropTypes {

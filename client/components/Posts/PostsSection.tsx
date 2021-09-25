@@ -1,4 +1,4 @@
-import { Heading, Progress, Skeleton, Stack, VStack } from '@chakra-ui/react';
+import { Progress, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useGetAllPostsQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';

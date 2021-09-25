@@ -50,11 +50,11 @@ export class CommentsResolver {
   }
 
   @UseGuards(GQLAuthGuard)
-  @Mutation(() => Comment)
+  @Mutation(() => Boolean)
   async deleteComment(
     @CurrentUser() user: User,
-    @Args('id') { id }: DeleteCommentInput,
-  ): Promise<Comment> {
+    @Args('data') { id }: DeleteCommentInput,
+  ): Promise<boolean> {
     const comment = await this.prisma.comment.findUnique({ where: { id } });
     if (!comment) throw new BadRequestException('comment does not exist');
 
@@ -62,9 +62,9 @@ export class CommentsResolver {
     if (comment.authorId !== user.id) {
       throw new UnauthorizedException();
     }
-    const deletedComment = this.prisma.comment.delete({
+    await this.prisma.comment.delete({
       where: { id: comment.id },
     });
-    return deletedComment;
+    return true;
   }
 }

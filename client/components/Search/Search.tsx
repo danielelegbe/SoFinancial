@@ -14,16 +14,11 @@ const Search = () => {
     router.push(`/articles/${searchQuery}`).then(() => setSearchQuery(''));
   };
   return (
-    <Box
-      as="form"
-      style={{ width: '40%', justifySelf: 'center' }}
-      onSubmit={searchHandler}
-    >
+    <Box as="form" w="40%" onSubmit={searchHandler}>
       <InputGroup>
         <InputLeftElement as="label" htmlFor="search">
           <SearchIcon color="blackAlpha.500" as="label" htmlFor="search" />
         </InputLeftElement>
-
         <Input
           onChange={(e) => setSearchQuery(e.target.value)}
           value={searchQuery}

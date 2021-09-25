@@ -1,3 +1,4 @@
+import { DeleteIcon } from '@chakra-ui/icons';
 import {
   useDisclosure,
   Button,
@@ -12,33 +13,29 @@ import {
 import { useRouter } from 'next/router';
 import React from 'react';
 import {
-  GetForumDocument,
-  useDeletePostMutation,
-  useMeQuery,
+  GetPostByIdDocument,
+  useDeleteCommentMutation,
 } from '../../generated/graphql';
 
 interface PropTypes {
-  postId: number;
+  commentId: number;
 }
 
-const DeletePostModal = ({ postId }: PropTypes) => {
+const DeleteCommentModal = ({ commentId }: PropTypes) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [deletePost, { client }] = useDeletePostMutation();
-  const router = useRouter();
+  const [deleteComment] = useDeleteCommentMutation({
+    refetchQueries: [GetPostByIdDocument],
+  });
 
-  const deletePostHandler = async () => {
+  const deleteCommentHandler = async () => {
     try {
-      await deletePost({
+      await deleteComment({
         variables: {
-          deletePostId: postId,
-        },
-        onCompleted: async () => {
-          await client.refetchQueries({
-            include: [GetForumDocument, 'GetForum'],
-          });
+          deleteCommentData: {
+            id: commentId,
+          },
         },
       });
-      router.push(`/forum/${router.query.forumName}`);
     } catch (error) {
       console.log(error);
     }
@@ -46,20 +43,20 @@ const DeletePostModal = ({ postId }: PropTypes) => {
 
   return (
     <>
-      <Button ml={5} colorScheme="red" size="sm" onClick={onOpen}>
-        Delete Post
+      <Button ml={5} colorScheme="red" size="xs" onClick={onOpen}>
+        <DeleteIcon />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Delete Post</ModalHeader>
+          <ModalHeader>Delete Comment</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Are you sure you want to delete this post?</ModalBody>
+          <ModalBody>Are you sure you want to delete this comment?</ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button onClick={deletePostHandler} colorScheme="red">
+            <Button onClick={deleteCommentHandler} colorScheme="red">
               Confirm
             </Button>
           </ModalFooter>
@@ -69,4 +66,4 @@ const DeletePostModal = ({ postId }: PropTypes) => {
   );
 };
 
-export default DeletePostModal;
+export default DeleteCommentModal;

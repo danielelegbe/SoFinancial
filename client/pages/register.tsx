@@ -6,13 +6,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../features/user/userSlice';
 
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
 
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Flex justify="center" align="center" h="80vh">
@@ -27,14 +27,13 @@ const Login = () => {
           direction="column"
         >
           <Text textAlign="center" fontSize="3xl" fontWeight="bold">
-            Login
+            Register
           </Text>
           <Formik
-            initialValues={{ username: '', password: '' }}
-            // validate={validationSchema}
+            initialValues={{ username: '', password: '', email: '' }}
             onSubmit={async (values, actions) => {
               const response = await axios.post(
-                'http://localhost:4000/auth/login',
+                'http://localhost:4000/auth/register',
                 values,
                 { withCredentials: true }
               );
@@ -50,6 +49,7 @@ const Login = () => {
               <Box w="60%">
                 <Form>
                   <Stack spacing={5}>
+                    <Field name="email" as={Input} placeholder="Email" />
                     <Field name="username" as={Input} placeholder="Username" />
                     <Field
                       name="password"
@@ -66,7 +66,7 @@ const Login = () => {
                       w="30%"
                       alignSelf="center"
                     >
-                      Login
+                      Register
                     </Button>
                   </Stack>
                 </Form>
@@ -79,4 +79,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

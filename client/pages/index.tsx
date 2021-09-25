@@ -1,11 +1,11 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import type { InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
 import React from 'react';
 import ArticleSection from '../components/Articles/ArticleSection';
 import Article from '../components/Articles/interfaces/Article';
 import PostsSection from '../components/Posts/PostsSection';
-import Head from 'next/head';
 
 const Home = ({
   uniqueArticles,

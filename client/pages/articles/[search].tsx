@@ -9,12 +9,12 @@ import Search from '../../components/Search/Search';
 
 const ArticleSearchPage = ({
   uniqueArticles,
-  searchParam,
+  search,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
-        <title>{searchParam}</title>
+        <title>{search}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Stack my={6} align="center">
@@ -30,11 +30,11 @@ export default ArticleSearchPage;
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const searchParam = context.query;
+  const { search } = context.query;
   const options: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://newscatcher.p.rapidapi.com/v1/search_free',
-    params: { q: { searchParam }, lang: 'en', media: 'True' },
+    params: { q: search, lang: 'en', media: 'True' },
     headers: {
       'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
       'x-rapidapi-key': process.env.RAPID_API_KEY,
@@ -53,6 +53,6 @@ export const getServerSideProps = async (
     return !duplicate;
   });
   return {
-    props: { uniqueArticles, searchParam },
+    props: { uniqueArticles, search },
   };
 };

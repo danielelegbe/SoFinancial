@@ -28,7 +28,7 @@ export const tokenRefreshLink = new TokenRefreshLink({
   },
 
   fetchAccessToken: () => {
-    return fetch('http://localhost:4000/refresh-token', {
+    return fetch('http://localhost:4000/auth/refresh-token', {
       credentials: 'include',
       method: 'POST',
     });

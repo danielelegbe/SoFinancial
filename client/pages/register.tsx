@@ -5,6 +5,7 @@ import Head from 'next/head';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../features/user/userSlice';
+import Image from 'next/image';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,12 @@ const Register = () => {
           align="center"
           direction="column"
         >
+          <Image
+            src="/return-on-investment.png"
+            width="100%"
+            height="100%"
+            alt="currency-icon"
+          />
           <Text textAlign="center" fontSize="3xl" fontWeight="bold">
             Register
           </Text>

@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
-// import { join } from 'path';
 import { PostsModule } from './posts/posts.module';
 import { ForumModule } from './forum/forum.module';
 import { CommentsModule } from './comments/comments.module';

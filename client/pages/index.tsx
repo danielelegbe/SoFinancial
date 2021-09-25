@@ -62,7 +62,7 @@ export const getStaticProps = async () => {
       seen.add(el.media);
       return !duplicate;
     })
-    .slice(0, 4);
+    .slice(0, 6);
 
   return {
     props: { uniqueArticles },

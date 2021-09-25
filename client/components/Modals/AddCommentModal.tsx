@@ -25,7 +25,9 @@ interface PropTypes {
 const AddCommentModal = ({ postId }: PropTypes) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [content, setContent] = useState('');
-  const [addComment, { client }] = useCreateCommentMutation();
+  const [addComment] = useCreateCommentMutation({
+    refetchQueries: [GetPostByIdDocument],
+  });
 
   const addCommentHandler = async () => {
     await addComment({
@@ -36,7 +38,6 @@ const AddCommentModal = ({ postId }: PropTypes) => {
         },
       },
     });
-    await client.refetchQueries({ include: ['GetAllPosts'] });
     onClose();
   };
 

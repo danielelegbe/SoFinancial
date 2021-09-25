@@ -63,7 +63,7 @@ type Mutation {
   deletePost(id: Int!): Boolean!
   createForum(newForumInput: NewForumInput!): Forum!
   createComment(createCommentInput: CreateCommentInput!): Comment!
-  deleteComment(id: DeleteCommentInput!): Comment!
+  deleteComment(data: DeleteCommentInput!): Boolean!
 }
 
 input NewPostInput {

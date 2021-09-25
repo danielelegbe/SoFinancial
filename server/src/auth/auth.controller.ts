@@ -24,8 +24,21 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  async register(@Body() newUserDto: NewUserDto): Promise<User> {
-    return await this.authService.register(newUserDto);
+  async register(@Body() newUserDto: NewUserDto, @Res() res: Response) {
+    const user = await this.authService.register(newUserDto);
+    const isValid = this.authService.login(user);
+
+    if (isValid) {
+      const payload = {
+        username: user.username,
+        sub: user.id,
+      };
+
+      const { access_token } = isValid;
+
+      this.refreshCookie(res, payload);
+      res.json({ ...user, access_token });
+    }
   }
 
   @UseGuards(LocalAuthGuard)

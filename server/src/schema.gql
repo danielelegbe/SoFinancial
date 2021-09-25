@@ -61,7 +61,7 @@ input QueryPostInput {
 type Mutation {
   createPost(newPostInput: NewPostInput!): Post!
   deletePost(id: Int!): Boolean!
-  createForum(newForumInput: NewForumInput!): Forum!
+  createForum(newForumInput: NewForumInput!): Boolean!
   createComment(createCommentInput: CreateCommentInput!): Comment!
   deleteComment(data: DeleteCommentInput!): Boolean!
 }

@@ -1,16 +1,15 @@
 import { DeleteIcon } from '@chakra-ui/icons';
 import {
-  useDisclosure,
   Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import React from 'react';
 import {
   GetPostByIdDocument,

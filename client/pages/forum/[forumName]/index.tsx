@@ -1,21 +1,20 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useGetForumQuery } from '../../../generated/graphql';
-import withApollo from '../../../lib/withApollo';
 import {
   Box,
-  Button,
   Flex,
   Heading,
-  Progress,
-  Text,
-  Stack,
   Link,
+  Progress,
+  Stack,
+  Text,
 } from '@chakra-ui/react';
-import Post from '../../../components/Posts/Post';
-import NextLink from 'next/link';
-import { SmallAddIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import AddPostModal from '../../../components/Modals/AddPostModal';
+import Post from '../../../components/Posts/Post';
+import { useGetForumQuery } from '../../../generated/graphql';
+import withApollo from '../../../lib/withApollo';
 
 const ForumName = () => {
   const router = useRouter();
@@ -63,9 +62,7 @@ const ForumName = () => {
       <Box mx="10%" mt={8}>
         <Flex>
           <Heading mb={8}>{forum.name}</Heading>
-          <Button ml={6} colorScheme="blue" rightIcon={<SmallAddIcon />}>
-            Add Post
-          </Button>
+          <AddPostModal />
         </Flex>
         <Stack spacing={4}>
           {forum.posts?.map((post) => (

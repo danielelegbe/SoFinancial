@@ -1,7 +1,5 @@
 mutation CreatePost($createPostNewPostInput: NewPostInput!) {
   createPost(newPostInput: $createPostNewPostInput) {
     id
-    content
-    title
   }
 }

@@ -159,7 +159,7 @@ export type CreatePostMutationVariables = Exact<{
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: number, content: string, title: string } };
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: number } };
 
 export type DeleteCommentMutationVariables = Exact<{
   deleteCommentData: DeleteCommentInput;
@@ -273,8 +273,6 @@ export const CreatePostDocument = gql`
     mutation CreatePost($createPostNewPostInput: NewPostInput!) {
   createPost(newPostInput: $createPostNewPostInput) {
     id
-    content
-    title
   }
 }
     `;

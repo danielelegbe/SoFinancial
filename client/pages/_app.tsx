@@ -23,13 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     axios
-      .post(
-        'http://localhost:4000/auth/refresh-token',
-        {},
-        {
-          withCredentials: true,
-        }
-      )
+      .get('http://localhost:4000/auth/refresh-token', {
+        withCredentials: true,
+      })
       .then((response) => {
         const { access_token } = response.data;
         store.dispatch(setAccessToken(access_token));

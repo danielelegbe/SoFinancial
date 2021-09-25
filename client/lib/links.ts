@@ -1,6 +1,7 @@
 import { HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { store } from '../app/store';
 import { setAccessToken } from '../features/user/userSlice';
@@ -30,7 +31,6 @@ export const tokenRefreshLink = new TokenRefreshLink({
   fetchAccessToken: () => {
     return fetch('http://localhost:4000/auth/refresh-token', {
       credentials: 'include',
-      method: 'POST',
     });
   },
   handleFetch: (access_token) => {

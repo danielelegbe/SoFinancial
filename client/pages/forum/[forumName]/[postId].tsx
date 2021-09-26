@@ -1,8 +1,8 @@
-import { Box, Flex, Heading, Link, Stack, Text } from '@chakra-ui/layout';
+import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/layout';
 import { Progress } from '@chakra-ui/progress';
 import { Avatar } from '@chakra-ui/react';
 import Head from 'next/head';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import Comment from '../../../components/Comments/Comment';
@@ -10,6 +10,7 @@ import AddCommentModal from '../../../components/Modals/AddCommentModal';
 import DeletePostModal from '../../../components/Modals/DeletePostModal';
 import { useGetPostByIdQuery, useMeQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
+import dayjs from 'dayjs';
 
 const FullPost = () => {
   const user = useMeQuery().data?.me;
@@ -30,7 +31,7 @@ const FullPost = () => {
         </Head>
         <Heading p={8}>
           Page not found. Go to{' '}
-          <Link as={NextLink} href="/">
+          <Link passHref href="/">
             <Text
               _hover={{ cursor: 'pointer' }}
               display="inline"
@@ -54,12 +55,13 @@ const FullPost = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Box mx="auto" w="70%">
-        <Stack spacing={20} px={12} py={8} mt="20" boxShadow="md">
+        <Stack spacing={6} px={12} py={8} mt="20" boxShadow="md">
           <Stack>
-            <Link href={`/forum/${router.query.forumName}`}>
+            <Link passHref href={`/forum/${router.query.forumName}`}>
               <Heading
                 _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
                 size="sm"
+                textTransform="uppercase"
               >
                 {router.query.forumName}
               </Heading>
@@ -68,20 +70,21 @@ const FullPost = () => {
           </Stack>
           <Box>{post.content}</Box>
           <Flex align="center">
-            <NextLink href={`/users/${post.author?.username}`} passHref>
+            <Link href={`/users/${post.author?.username}`} passHref>
               <Text
                 as="a"
                 _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
               >
                 Posted by - {post.author?.username}
               </Text>
-            </NextLink>
+            </Link>
             <Avatar src={post.author?.avatar} size="xs" ml={2} />
 
             {user?.id === post.author?.id ? (
               <DeletePostModal postId={post.id} />
             ) : null}
           </Flex>
+          <Text>{dayjs(post.createdAt).format('DD MMMM YYYY HH:MM')}</Text>
         </Stack>
         <Flex ml={12} mt={20} align="center">
           <Heading as="h3">Comments</Heading>

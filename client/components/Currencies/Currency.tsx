@@ -16,7 +16,7 @@ const Currency = ({ s: symbol, p: price }: ICurrency) => {
       <Text size="sm" fontWeight="bold">
         {symbol}
       </Text>
-      <Text size="sm">{price}</Text>
+      <Text size="sm">{price && parseFloat(price.toFixed(5))}</Text>
     </HStack>
   );
 };

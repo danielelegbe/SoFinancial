@@ -11,18 +11,20 @@ import {
 import React from 'react';
 import { GetAllPostsQuery } from '../../generated/graphql';
 import Link from 'next/link';
+import dayjs from 'dayjs';
 
 const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
   return (
-    <Flex
+    <Stack
       borderRadius="md"
+      spacing={3}
       boxShadow="lg"
-      w="80%"
-      h={'30vh'}
+      w="90%"
+      h={'35vh'}
       py={8}
       px={6}
       direction="column"
-      justify="space-around"
+      justify="space-evenly"
       align="flex-start"
     >
       {post.forum?.name && (
@@ -39,7 +41,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
       )}
       <Link href={`/forum/${post.forum?.name}/${post.id}`} passHref>
         <Heading
-          size="lg"
+          size="md"
           color="blue.700"
           as="a"
           _hover={{ textDecoration: 'underline' }}
@@ -63,6 +65,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
               Posted by - {post.author?.username}
             </Text>
           </Link>
+
           <Avatar src={post.author?.avatar} size="xs" />
         </Stack>
 
@@ -77,7 +80,8 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
           </HStack>
         )}
       </Flex>
-    </Flex>
+      <Text>{dayjs(post.createdAt).format('DD MMMM YYYY HH:MM')}</Text>
+    </Stack>
   );
 };
 

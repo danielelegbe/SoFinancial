@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../../features/user/userSlice';
 import { useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
-import AllCurrencies from '../AllCurrencies';
+import AllCurrencies from '../Currencies/AllCurrencies';
 import Search from '../Search/SearchArticle';
 import styles from './Navbar.module.css';
 

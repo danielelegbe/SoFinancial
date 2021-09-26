@@ -86,7 +86,7 @@ const FullPost = () => {
           </Flex>
           <Text>{dayjs(post.createdAt).format('DD MMMM YYYY HH:MM')}</Text>
         </Stack>
-        <Flex ml={12} mt={20} align="center">
+        <Flex mt={14} align="center">
           <Heading as="h3">Comments</Heading>
           {user && <AddCommentModal postId={post.id} />}
         </Flex>

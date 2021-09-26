@@ -10,13 +10,12 @@ const Currency = ({ s: symbol, p: price }: ICurrency) => {
       rounded="md"
       boxShadow="md"
       p={3}
-      px={4}
       justify="space-between"
     >
-      <Text size="sm" fontWeight="bold">
+      <Text fontSize="sm" fontWeight="bold">
         {symbol}
       </Text>
-      <Text size="sm">{price && parseFloat(price.toFixed(5))}</Text>
+      <Text fontSize="sm">{price && parseFloat(price.toFixed(5))}</Text>
     </HStack>
   );
 };

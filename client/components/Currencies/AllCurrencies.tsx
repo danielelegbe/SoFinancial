@@ -46,7 +46,7 @@ const Currencies = () => {
   }, []);
 
   return (
-    <Flex justify="center" boxShadow="md" h="5vh" align="center" bg="gray.100">
+    <Flex justify="center" boxShadow="md" py={1} align="center" bg="gray.100">
       {!BTC && <CircularProgress isIndeterminate color="blue.700" />}
       <HStack spacing={5}>
         {BTC && <Currency {...BTC} />}

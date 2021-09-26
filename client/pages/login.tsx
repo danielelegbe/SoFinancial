@@ -2,18 +2,16 @@ import { Box, Button, Flex, Input, Stack, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setAccessToken } from '../features/user/userSlice';
-import Image from 'next/image';
-import { useMeLazyQuery } from '../generated/graphql';
-import { useRouter } from 'next/router';
 import withApollo from '../lib/withApollo';
 
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [meQuery] = useMeLazyQuery();
 
   return (
     <>
@@ -46,7 +44,6 @@ const Login = () => {
               );
               if (response.data) {
                 dispatch(setAccessToken(response.data.access_token));
-                await meQuery();
                 router.push('/forum');
               }
 

@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.6.1",
     "apollo-link-token-refresh": "^0.3.2",
     "axios": "^0.21.4",
+    "dayjs": "^1.10.7",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "graphql": "^15.6.0",

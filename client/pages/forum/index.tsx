@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import CreateForumModal from '../../components/Modals/CreateForumModal';
 import PostsSection from '../../components/Posts/PostsSection';
+import SearchForum from '../../components/Search/SerachForum';
 
 const Forum = () => {
   return (
@@ -16,6 +17,7 @@ const Forum = () => {
         <Heading textAlign="center">Popular Posts</Heading>
         <CreateForumModal />
       </HStack>
+      <SearchForum />
       <PostsSection />
     </Box>
   );

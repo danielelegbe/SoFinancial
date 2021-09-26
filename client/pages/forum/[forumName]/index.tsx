@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import AddPostModal from '../../../components/Modals/AddPostModal';
 import Post from '../../../components/Posts/Post';
+import SearchForum from '../../../components/Search/SerachForum';
 import { useGetForumQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
 
@@ -36,6 +37,7 @@ const ForumName = () => {
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
+        <SearchForum />
         <Heading p={8}>
           Page not found. Go to{' '}
           <Link as={NextLink} href="/">
@@ -59,7 +61,7 @@ const ForumName = () => {
 
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Box mx="10%" mt={8}>
+      <Box mt={8} mx="auto" w="70%">
         <Flex>
           <Heading mb={8}>{forum.name}</Heading>
           <AddPostModal />

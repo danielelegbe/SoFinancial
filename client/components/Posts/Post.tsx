@@ -22,7 +22,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
       py={8}
       px={6}
       direction="column"
-      justify="space-between"
+      justify="space-around"
       align="flex-start"
     >
       {post.forum?.name && (

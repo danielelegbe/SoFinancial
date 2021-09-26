@@ -26,7 +26,18 @@ const Navbar = () => {
   const { data } = useMeQuery();
   const user = data?.me;
   return (
-    <Flex as={'header'} maxH="80px" boxShadow="md" mb={5}>
+    <Flex
+      as={'header'}
+      maxH="80px"
+      boxShadow="md"
+      pos="sticky"
+      w="100vw"
+      zIndex="100"
+      top={0}
+      left={0}
+      bg="gray.50"
+      mb={8}
+    >
       <Box p={4} pl={20}>
         <Link as={NextLink} href="/">
           <Heading
@@ -64,7 +75,7 @@ const Navbar = () => {
         <Link as={NextLink} href="/forum">
           Forum
         </Link>
-        {user ? (
+        {user && (
           <Stack direction="row" spacing={4} justify="center" align="center">
             <NextLink href={`/users/${user.username}`}>
               <Text
@@ -76,7 +87,7 @@ const Navbar = () => {
             </NextLink>
             <Avatar size="sm" name={user.username} src={user.avatar} />
           </Stack>
-        ) : null}
+        )}
         <Search />
         {user && (
           <Button onClick={logoutHandler} size="sm">

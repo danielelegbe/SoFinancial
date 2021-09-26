@@ -11,7 +11,7 @@ const PostsSection = () => {
   if (error) return <h1>Error</h1>;
   if (!data || loading) return <Progress size="sm" isIndeterminate />;
   return (
-    <VStack spacing={4}>
+    <VStack spacing={4} w="70%" mx="auto">
       {data.getAllPosts.map((post) => {
         return <Post key={post.id} {...post} />;
       })}

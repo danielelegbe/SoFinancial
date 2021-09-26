@@ -54,8 +54,16 @@ const FullPost = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Box mx="auto" w="70%">
-        <Stack spacing={20} px={12} pb={8} mt="20" boxShadow="md">
+        <Stack spacing={20} px={12} py={8} mt="20" boxShadow="md">
           <Stack>
+            <Link href={`/forum/${router.query.forumName}`}>
+              <Heading
+                _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
+                size="sm"
+              >
+                {router.query.forumName}
+              </Heading>
+            </Link>
             <Heading textColor="blue.700">{post.title}</Heading>
           </Stack>
           <Box>{post.content}</Box>

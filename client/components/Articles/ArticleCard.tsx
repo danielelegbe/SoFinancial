@@ -16,8 +16,8 @@ const ArticleCard = ({ author, link, title, media, rights }: Article) => {
       borderRadius="md"
       mb={10}
       mx={5}
-      w="xs"
-      h="sm"
+      w="md"
+      h="md"
       pb={8}
       as="a"
       target={'_blank'}

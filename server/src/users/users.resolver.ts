@@ -32,8 +32,8 @@ export class UsersResolver {
   }
 
   @Query(() => User)
-  async getProfile(@Args('id') { id }: GetProfileDto) {
-    const user = await this.usersService.findUserById(id);
+  async getProfile(@Args('id') { username }: GetProfileDto) {
+    const user = await this.usersService.findUserByUsername(username);
     if (!user) throw new BadRequestException();
     return user;
   }

@@ -43,7 +43,7 @@ export type Forum = {
 };
 
 export type GetProfileDto = {
-  id: Scalars['Int'];
+  username: Scalars['String'];
 };
 
 export type Message = {
@@ -235,6 +235,13 @@ export type GetPostByIdQueryVariables = Exact<{
 
 export type GetPostByIdQuery = { __typename?: 'Query', getPostById?: Maybe<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }>, comments?: Maybe<Array<{ __typename?: 'Comment', id: number, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }> }>> }> };
 
+export type GetProfileQueryVariables = Exact<{
+  getProfileId: GetProfileDto;
+}>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: number, username: string, avatar: string, posts?: Maybe<Array<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', username: string, avatar: string }>, forum?: Maybe<{ __typename?: 'Forum', id: number, name: string }>, comments?: Maybe<Array<{ __typename?: 'Comment', id: number }>> }>> } };
+
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -255,7 +262,7 @@ export type SendMessageMutationVariables = Exact<{
 }>;
 
 
-export type SendMessageMutation = { __typename?: 'Mutation', sendMessage: { __typename?: 'Message', id: number, content: string, createdAt: any, from: { __typename?: 'User', username: string, avatar: string }, to: { __typename?: 'User', username: string, avatar: string } } };
+export type SendMessageMutation = { __typename?: 'Mutation', sendMessage: { __typename?: 'Message', id: number, content: string, createdAt: any, from: { __typename?: 'User', id: number, username: string, avatar: string }, to: { __typename?: 'User', id: number, username: string, avatar: string } } };
 
 
 export const CreateCommentDocument = gql`
@@ -624,6 +631,60 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetProfileDocument = gql`
+    query GetProfile($getProfileId: GetProfileDto!) {
+  getProfile(id: $getProfileId) {
+    id
+    username
+    avatar
+    posts {
+      id
+      title
+      content
+      createdAt
+      author {
+        username
+        avatar
+      }
+      forum {
+        id
+        name
+      }
+      comments {
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetProfileQuery__
+ *
+ * To run a query within a React component, call `useGetProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProfileQuery({
+ *   variables: {
+ *      getProfileId: // value for 'getProfileId'
+ *   },
+ * });
+ */
+export function useGetProfileQuery(baseOptions: Apollo.QueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+      }
+export function useGetProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProfileQuery, GetProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProfileQuery, GetProfileQueryVariables>(GetProfileDocument, options);
+        }
+export type GetProfileQueryHookResult = ReturnType<typeof useGetProfileQuery>;
+export type GetProfileLazyQueryHookResult = ReturnType<typeof useGetProfileLazyQuery>;
+export type GetProfileQueryResult = Apollo.QueryResult<GetProfileQuery, GetProfileQueryVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   getUsers {
@@ -744,10 +805,12 @@ export const SendMessageDocument = gql`
     content
     createdAt
     from {
+      id
       username
       avatar
     }
     to {
+      id
       username
       avatar
     }

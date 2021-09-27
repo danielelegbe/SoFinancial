@@ -98,7 +98,7 @@ export class AuthController {
         expiresIn: '7d',
       }),
       {
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 6.048e8, // 7 days
         httpOnly: true,

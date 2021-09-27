@@ -1,9 +1,9 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsNumber } from 'class-validator';
+import { Field, InputType } from '@nestjs/graphql';
+import { IsString } from 'class-validator';
 
 @InputType()
 export class GetProfileDto {
-  @IsNumber()
-  @Field(() => Int)
-  id: number;
+  @IsString()
+  @Field()
+  username: string;
 }

@@ -40,7 +40,7 @@ export class MessagesService {
 
     const messages = await this.prisma.message.findMany({
       where: {
-        OR: [
+        AND: [
           {
             fromUserId: { in: userIds },
           },
@@ -50,7 +50,7 @@ export class MessagesService {
         ],
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
     });
     return messages;

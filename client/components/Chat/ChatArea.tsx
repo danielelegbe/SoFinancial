@@ -1,16 +1,10 @@
-import { ChatIcon } from '@chakra-ui/icons';
-import {
-  Circle,
-  CircularProgress,
-  Flex,
-  Heading,
-  Input,
-} from '@chakra-ui/react';
+import { CircularProgress, Flex, Text } from '@chakra-ui/react';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { useGetAllMessagesQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
+import ChatInput from './ChatInput';
 
 const ChatArea = () => {
   const otherUser = useSelector((state: RootState) => state.chat);
@@ -20,6 +14,7 @@ const ChatArea = () => {
       getMessagesOtherUserId: otherUser.id!,
     },
   });
+
   if (!data || loading)
     return (
       <Flex align="center" justify="center">
@@ -27,15 +22,20 @@ const ChatArea = () => {
       </Flex>
     );
 
-  console.log(data);
   return (
-    <Flex direction="column" pos="relative">
-      <Flex align="center" pos="absolute" bottom="10px" left="90px" w="40vw">
-        <Input borderColor="gray.400" mx={4} w="100%" minWidth="100%" />
-        <Circle bg="blue.500" color="white" size="40px">
-          <ChatIcon />
-        </Circle>
-      </Flex>
+    <Flex direction="column" pos="relative" w="100%">
+      {data.getMessages?.map((message) => (
+        <Flex
+          key={message.id}
+          bgColor={message.from.id === otherUser.id ? 'blue.700' : 'gray.50'}
+          alignSelf={
+            message.from.id === otherUser.id ? 'flex-start' : 'flex-end'
+          }
+        >
+          <Text>{message.content}</Text>
+        </Flex>
+      ))}
+      <ChatInput otherUserId={otherUser.id!} />
     </Flex>
   );
 };

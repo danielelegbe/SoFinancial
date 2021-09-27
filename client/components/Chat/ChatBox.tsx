@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Box,
   CircularProgress,
   Flex,
   Heading,
@@ -18,6 +17,7 @@ import ChatArea from './ChatArea';
 const ChatBox = () => {
   const dispatch = useDispatch();
   const otherUser = useSelector((state: RootState) => state.chat);
+  //   const [userIsHighlighted, setUserIsHighlighted] = useState(false);
 
   const { data, loading, error } = useGetUsersQuery({
     fetchPolicy: 'network-only',
@@ -49,12 +49,20 @@ const ChatBox = () => {
         {data.getUsers.map((user) => {
           return (
             <Flex key={user.id} p={5}>
-              <Flex ml={4} align="center" w="100%">
+              <Flex
+                ml={4}
+                p={2}
+                borderRadius="md"
+                align="center"
+                boxShadow="md"
+                bg="blue.700"
+                onClick={() => chatChangeHandler(user.id)}
+                _hover={{ cursor: 'pointer' }}
+              >
                 <Text
                   _hover={{ textDecoration: 'underline', cursor: 'pointer' }}
                   color="white"
                   mr={4}
-                  onClick={() => chatChangeHandler(user.id)}
                 >
                   {user.username}
                 </Text>

@@ -1,0 +1,17 @@
+query GetAllMessages($getMessagesOtherUserId: Int!) {
+  getMessages(otherUserId: $getMessagesOtherUserId) {
+    id
+    content
+    createdAt
+    from {
+      id
+      username
+      avatar
+    }
+    to {
+      id
+      username
+      avatar
+    }
+  }
+}

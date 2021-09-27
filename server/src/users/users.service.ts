@@ -12,17 +12,17 @@ export class UsersService {
     const { password } = userData;
     const hashedPassword = await hash(password, 10);
 
-    return await this.prisma.user.create({
+    return (await this.prisma.user.create({
       data: {
         ...userData,
         avatar: `https://avatars.dicebear.com/api/avataaars/${userData.username}.svg`,
         password: hashedPassword,
       },
-    });
+    })) as User;
   }
 
   async getAllUsers(): Promise<User[] | null> {
-    return await this.prisma.user.findMany();
+    return (await this.prisma.user.findMany()) as User[];
   }
 
   async findUserByUsername(username: string): Promise<User | null> {
@@ -33,7 +33,7 @@ export class UsersService {
     });
     if (!foundUser) return null;
 
-    return foundUser;
+    return foundUser as User;
   }
 
   async findUserById(id: number): Promise<User | null> {
@@ -48,12 +48,12 @@ export class UsersService {
   }
 
   async resolveAuthorForPost(parent: any): Promise<User> {
-    return await this.prisma.post
+    return (await this.prisma.post
       .findUnique({
         where: {
           id: parent.id,
         },
       })
-      .author();
+      .author()) as User;
   }
 }

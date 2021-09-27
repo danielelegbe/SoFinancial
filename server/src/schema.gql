@@ -14,6 +14,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Message {
+  id: Int!
+  content: String!
+  createdAt: DateTime!
+  from: User!
+  to: User!
+}
+
 type User {
   id: Int!
   email: String!
@@ -21,6 +29,8 @@ type User {
   avatar: String!
   posts: [Post!]
   comments: [Comment!]
+  sentMessages: [Message!]!
+  receivedMessages: [Message!]!
 }
 
 type Post {
@@ -64,6 +74,7 @@ type Mutation {
   createForum(newForumInput: NewForumInput!): Boolean!
   createComment(createCommentInput: CreateCommentInput!): Comment!
   deleteComment(data: DeleteCommentInput!): Boolean!
+  sendMessage(data: NewMessageInput!): Message!
 }
 
 input NewPostInput {
@@ -83,4 +94,9 @@ input CreateCommentInput {
 
 input DeleteCommentInput {
   id: Int!
+}
+
+input NewMessageInput {
+  content: String!
+  toUserId: Int!
 }

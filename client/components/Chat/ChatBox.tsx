@@ -17,7 +17,6 @@ import ChatArea from './ChatArea';
 const ChatBox = () => {
   const dispatch = useDispatch();
   const otherUser = useSelector((state: RootState) => state.chat);
-  //   const [userIsHighlighted, setUserIsHighlighted] = useState(false);
 
   const { data, loading, error } = useGetUsersQuery({
     fetchPolicy: 'network-only',

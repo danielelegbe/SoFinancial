@@ -1,5 +1,14 @@
 import { getDataFromTree } from '@apollo/client/react/ssr';
-import { Avatar, Box, Button, Flex, Link, Stack, Text } from '@chakra-ui/react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Link,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import axios from 'axios';
 import NextLink from 'next/link';
@@ -38,7 +47,7 @@ const Navbar = () => {
       left={0}
     >
       <Flex as={'header'} maxH="80px" boxShadow="md" bg="gray.50">
-        <Box p={4} pl={20}>
+        <Box p={4} pl={20} flexShrink={3}>
           <Link as={NextLink} href="/">
             <Heading
               textDecor="underline"
@@ -50,13 +59,16 @@ const Navbar = () => {
             </Heading>
           </Link>
         </Box>
-        <Flex
+        <HStack
+          spacing={6}
           as="nav"
           align="center"
-          justify="space-evenly"
-          w="40%"
-          m={'auto'}
+          ml={40}
+          // justify="space-around"
           className={styles.nav}
+          w="20vw"
+          flexGrow={1}
+          // flexShrink={3}
         >
           <Link as={NextLink} href="/">
             Home
@@ -98,7 +110,7 @@ const Navbar = () => {
               Logout
             </Button>
           )}
-        </Flex>
+        </HStack>
       </Flex>
       <AllCurrencies />
     </Flex>

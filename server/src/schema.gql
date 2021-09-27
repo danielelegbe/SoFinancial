@@ -63,7 +63,7 @@ type Query {
 }
 
 input GetProfileDto {
-  id: Int!
+  username: String!
 }
 
 input QueryPostInput {

@@ -1,0 +1,24 @@
+query GetProfile($getProfileId: GetProfileDto!) {
+  getProfile(id: $getProfileId) {
+    id
+    username
+    avatar
+    posts {
+      id
+      title
+      content
+      createdAt
+      author {
+        username
+        avatar
+      }
+      forum {
+        id
+        name
+      }
+      comments {
+        id
+      }
+    }
+  }
+}

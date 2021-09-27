@@ -46,6 +46,15 @@ export type GetProfileDto = {
   id: Scalars['Int'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  from: User;
+  id: Scalars['Int'];
+  to: User;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createComment: Comment;
@@ -53,6 +62,7 @@ export type Mutation = {
   createPost: Post;
   deleteComment: Scalars['Boolean'];
   deletePost: Scalars['Boolean'];
+  sendMessage: Message;
 };
 
 
@@ -80,8 +90,18 @@ export type MutationDeletePostArgs = {
   id: Scalars['Int'];
 };
 
+
+export type MutationSendMessageArgs = {
+  data: NewMessageInput;
+};
+
 export type NewForumInput = {
   name: Scalars['String'];
+};
+
+export type NewMessageInput = {
+  content: Scalars['String'];
+  toUserId: Scalars['Int'];
 };
 
 export type NewPostInput = {
@@ -106,14 +126,21 @@ export type Query = {
   getAllForums: Array<Forum>;
   getAllPosts: Array<Post>;
   getForum?: Maybe<Forum>;
+  getMessages: Array<Message>;
   getPostById?: Maybe<Post>;
   getProfile: User;
+  getUsers: Array<User>;
   me?: Maybe<User>;
 };
 
 
 export type QueryGetForumArgs = {
   name: Scalars['String'];
+};
+
+
+export type QueryGetMessagesArgs = {
+  otherUserId: Scalars['Int'];
 };
 
 
@@ -137,6 +164,8 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['Int'];
   posts?: Maybe<Array<Post>>;
+  receivedMessages: Array<Message>;
+  sentMessages: Array<Message>;
   username: Scalars['String'];
 };
 
@@ -175,6 +204,13 @@ export type DeletePostMutationVariables = Exact<{
 
 export type DeletePostMutation = { __typename?: 'Mutation', deletePost: boolean };
 
+export type GetAllMessagesQueryVariables = Exact<{
+  getMessagesOtherUserId: Scalars['Int'];
+}>;
+
+
+export type GetAllMessagesQuery = { __typename?: 'Query', getMessages: Array<{ __typename?: 'Message', id: number, content: string, createdAt: any, from: { __typename?: 'User', id: number, username: string, avatar: string }, to: { __typename?: 'User', id: number, username: string, avatar: string } }> };
+
 export type GetAllPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -193,6 +229,11 @@ export type GetPostByIdQueryVariables = Exact<{
 
 
 export type GetPostByIdQuery = { __typename?: 'Query', getPostById?: Maybe<{ __typename?: 'Post', id: number, title: string, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }>, comments?: Maybe<Array<{ __typename?: 'Comment', id: number, content: string, createdAt: any, author?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }> }>> }> };
+
+export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUsersQuery = { __typename?: 'Query', getUsers: Array<{ __typename?: 'User', id: number, username: string, avatar: string }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -364,6 +405,53 @@ export function useDeletePostMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeletePostMutationHookResult = ReturnType<typeof useDeletePostMutation>;
 export type DeletePostMutationResult = Apollo.MutationResult<DeletePostMutation>;
 export type DeletePostMutationOptions = Apollo.BaseMutationOptions<DeletePostMutation, DeletePostMutationVariables>;
+export const GetAllMessagesDocument = gql`
+    query GetAllMessages($getMessagesOtherUserId: Int!) {
+  getMessages(otherUserId: $getMessagesOtherUserId) {
+    id
+    content
+    createdAt
+    from {
+      id
+      username
+      avatar
+    }
+    to {
+      id
+      username
+      avatar
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllMessagesQuery__
+ *
+ * To run a query within a React component, call `useGetAllMessagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllMessagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllMessagesQuery({
+ *   variables: {
+ *      getMessagesOtherUserId: // value for 'getMessagesOtherUserId'
+ *   },
+ * });
+ */
+export function useGetAllMessagesQuery(baseOptions: Apollo.QueryHookOptions<GetAllMessagesQuery, GetAllMessagesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllMessagesQuery, GetAllMessagesQueryVariables>(GetAllMessagesDocument, options);
+      }
+export function useGetAllMessagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMessagesQuery, GetAllMessagesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllMessagesQuery, GetAllMessagesQueryVariables>(GetAllMessagesDocument, options);
+        }
+export type GetAllMessagesQueryHookResult = ReturnType<typeof useGetAllMessagesQuery>;
+export type GetAllMessagesLazyQueryHookResult = ReturnType<typeof useGetAllMessagesLazyQuery>;
+export type GetAllMessagesQueryResult = Apollo.QueryResult<GetAllMessagesQuery, GetAllMessagesQueryVariables>;
 export const GetAllPostsDocument = gql`
     query GetAllPosts {
   getAllPosts {
@@ -519,6 +607,42 @@ export function useGetPostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetPostByIdQueryHookResult = ReturnType<typeof useGetPostByIdQuery>;
 export type GetPostByIdLazyQueryHookResult = ReturnType<typeof useGetPostByIdLazyQuery>;
 export type GetPostByIdQueryResult = Apollo.QueryResult<GetPostByIdQuery, GetPostByIdQueryVariables>;
+export const GetUsersDocument = gql`
+    query GetUsers {
+  getUsers {
+    id
+    username
+    avatar
+  }
+}
+    `;
+
+/**
+ * __useGetUsersQuery__
+ *
+ * To run a query within a React component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+      }
+export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUsersQuery, GetUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, options);
+        }
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
+export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
+export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

@@ -61,7 +61,6 @@ const Navbar = () => {
           <Link as={NextLink} href="/">
             Home
           </Link>
-
           {!user && (
             <Link as={NextLink} href="/register">
               Register
@@ -75,6 +74,11 @@ const Navbar = () => {
           <Link as={NextLink} href="/forum">
             Forum
           </Link>
+          {user && (
+            <Link as={NextLink} href="/chat">
+              Chat
+            </Link>
+          )}
           {user && (
             <Stack direction="row" spacing={4} justify="center" align="center">
               <NextLink href={`/users/${user.username}`}>

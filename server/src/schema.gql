@@ -58,6 +58,8 @@ type Query {
   getPostById(data: QueryPostInput!): Post
   getAllForums: [Forum!]!
   getForum(name: String!): Forum
+  getMessages(otherUserId: Int!): [Message!]!
+  getUsers: [User!]!
 }
 
 input GetProfileDto {

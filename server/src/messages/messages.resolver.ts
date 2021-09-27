@@ -1,5 +1,13 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, ResolveField, Resolver, Root } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Query,
+  ResolveField,
+  Resolver,
+  Root,
+} from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -41,5 +49,20 @@ export class MessagesResolver {
       messageData.toUserId,
       messageData.content,
     );
+  }
+
+  @UseGuards(GQLAuthGuard)
+  @Query(() => [Message])
+  async getMessages(
+    @CurrentUser() currentUser: User,
+    @Args('otherUserId', { type: () => Int }) otherUserId: number,
+  ) {
+    return this.messagesService.getMessages(currentUser, otherUserId);
+  }
+
+  @UseGuards(GQLAuthGuard)
+  @Query(() => [User])
+  async getUsers(@CurrentUser() currentUser: User) {
+    return this.messagesService.getUsers(currentUser);
   }
 }

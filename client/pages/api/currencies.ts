@@ -21,6 +21,9 @@ const ioHandler: NextApiHandler = async (req, res) => {
         JSON.stringify({ type: 'subscribe', symbol: 'OANDA:GBP_USD' })
       );
       socket.send(
+        JSON.stringify({ type: 'subscribe', symbol: 'OANDA:USD_CAD' })
+      );
+      socket.send(
         JSON.stringify({ type: 'subscribe', symbol: 'BINANCE:BTCUSDT' })
       );
     });

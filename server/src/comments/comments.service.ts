@@ -18,12 +18,12 @@ export class CommentsService {
   }
 
   async resolveAuthorForComment(parent: any): Promise<User> {
-    return await this.prisma.comment
+    return (await this.prisma.comment
       .findUnique({
         where: {
           id: parent.id,
         },
       })
-      .author();
+      .author()) as User;
   }
 }

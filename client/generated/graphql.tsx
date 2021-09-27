@@ -240,6 +240,13 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me?: Maybe<{ __typename?: 'User', id: number, username: string, avatar: string }> };
 
+export type SendMessageMutationVariables = Exact<{
+  sendMessageData: NewMessageInput;
+}>;
+
+
+export type SendMessageMutation = { __typename?: 'Mutation', sendMessage: { __typename?: 'Message', id: number, content: string, createdAt: any, from: { __typename?: 'User', username: string, avatar: string }, to: { __typename?: 'User', username: string, avatar: string } } };
+
 
 export const CreateCommentDocument = gql`
     mutation CreateComment($createCommentCreateCommentInput: CreateCommentInput!) {
@@ -679,3 +686,46 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const SendMessageDocument = gql`
+    mutation SendMessage($sendMessageData: NewMessageInput!) {
+  sendMessage(data: $sendMessageData) {
+    id
+    content
+    createdAt
+    from {
+      username
+      avatar
+    }
+    to {
+      username
+      avatar
+    }
+  }
+}
+    `;
+export type SendMessageMutationFn = Apollo.MutationFunction<SendMessageMutation, SendMessageMutationVariables>;
+
+/**
+ * __useSendMessageMutation__
+ *
+ * To run a mutation, you first call `useSendMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendMessageMutation, { data, loading, error }] = useSendMessageMutation({
+ *   variables: {
+ *      sendMessageData: // value for 'sendMessageData'
+ *   },
+ * });
+ */
+export function useSendMessageMutation(baseOptions?: Apollo.MutationHookOptions<SendMessageMutation, SendMessageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendMessageMutation, SendMessageMutationVariables>(SendMessageDocument, options);
+      }
+export type SendMessageMutationHookResult = ReturnType<typeof useSendMessageMutation>;
+export type SendMessageMutationResult = Apollo.MutationResult<SendMessageMutation>;
+export type SendMessageMutationOptions = Apollo.BaseMutationOptions<SendMessageMutation, SendMessageMutationVariables>;

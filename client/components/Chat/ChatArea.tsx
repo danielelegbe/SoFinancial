@@ -1,4 +1,5 @@
-import { CircularProgress, Flex, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, HStack, Progress, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
@@ -15,25 +16,42 @@ const ChatArea = () => {
     },
   });
 
-  if (!data || loading)
+  if (!data || loading) {
     return (
-      <Flex align="center" justify="center">
-        <CircularProgress m="auto" color="blue.500" isIndeterminate />
-      </Flex>
+      <Progress
+        justifySelf="center"
+        alignSelf="center"
+        m="auto"
+        color="blue.500"
+        isIndeterminate
+      />
     );
+  }
 
   return (
     <Flex direction="column" pos="relative" w="100%">
       {data.getMessages?.map((message) => (
-        <Flex
+        <HStack
+          spacing={2}
+          align="center"
+          p={2}
+          m={3}
+          borderRadius="md"
           key={message.id}
-          bgColor={message.from.id === otherUser.id ? 'blue.700' : 'gray.50'}
+          bgColor={message.from.id === otherUser.id ? 'blue.700' : 'gray.200'}
           alignSelf={
             message.from.id === otherUser.id ? 'flex-start' : 'flex-end'
           }
         >
-          <Text>{message.content}</Text>
-        </Flex>
+          <Box
+            fontSize="sm"
+            color={message.from.id === otherUser.id ? 'white' : 'black'}
+          >
+            <Text>{message.content}</Text>
+            <Text>{dayjs(message.createdAt).format('DD/MM HH:MM')}</Text>
+          </Box>
+          <Avatar src={message.from.avatar} size="xs" />
+        </HStack>
       ))}
       <ChatInput otherUserId={otherUser.id!} />
     </Flex>

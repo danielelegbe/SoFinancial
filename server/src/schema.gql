@@ -102,3 +102,7 @@ input NewMessageInput {
   content: String!
   toUserId: Int!
 }
+
+type Subscription {
+  newMessage: Message!
+}

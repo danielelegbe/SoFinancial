@@ -6,13 +6,13 @@ import {
 } from '@apollo/client';
 import nextWithApollo from 'next-with-apollo';
 import { useRouter } from 'next/router';
-import { tokenRefreshLink, authLink, httpLink } from './links';
+import { tokenRefreshLink, authLink, httpWsLink } from './links';
 
 const withApollo = nextWithApollo(
   ({ initialState, headers }) => {
     return new ApolloClient({
       ssrMode: typeof window === 'undefined',
-      link: from([tokenRefreshLink, authLink, httpLink]),
+      link: from([tokenRefreshLink, authLink, httpWsLink]),
       cache: new InMemoryCache().restore(initialState || {}),
       headers: {
         ...(headers as Record<string, string>),

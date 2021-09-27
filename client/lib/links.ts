@@ -1,9 +1,11 @@
-import { HttpLink } from '@apollo/client';
+import { HttpLink, OperationVariables, split } from '@apollo/client';
+import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import jwtDecode from 'jwt-decode';
 import { store } from '../app/store';
 import { setAccessToken } from '../features/user/userSlice';
+import { getMainDefinition } from '@apollo/client/utilities';
 
 export const tokenRefreshLink = new TokenRefreshLink({
   accessTokenField: 'access_token',
@@ -55,3 +57,23 @@ export const authLink = setContext((_, { headers }) => {
     headers: { ...headers, authorization: token ? `Bearer ${token}` : '' },
   };
 });
+
+export const wsLink = process.browser
+  ? new WebSocketLink({
+      uri: 'ws://localhost:4000/graphql',
+    })
+  : null;
+
+export const httpWsLink = process.browser
+  ? split(
+      //only create the split in the browser
+      // split based on operation type
+      ({ query }) => {
+        const { kind, operation }: OperationVariables =
+          getMainDefinition(query);
+        return kind === 'OperationDefinition' && operation === 'subscription';
+      },
+      wsLink!,
+      httpLink
+    )
+  : httpLink;

@@ -17,6 +17,10 @@ import { MessagesModule } from './messages/messages.module';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       cors: false,
+      installSubscriptionHandlers: true,
+      subscriptions: {
+        'subscriptions-transport-ws': true,
+      },
     }),
     PostsModule,
     ForumModule,

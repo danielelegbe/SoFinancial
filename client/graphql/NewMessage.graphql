@@ -1,0 +1,17 @@
+subscription NewMessage {
+  newMessage {
+    id
+    content
+    createdAt
+    from {
+      id
+      username
+      avatar
+    }
+    to {
+      id
+      username
+      avatar
+    }
+  }
+}

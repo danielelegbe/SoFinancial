@@ -7,6 +7,7 @@ import {
   ResolveField,
   Resolver,
   Root,
+  Subscription,
 } from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/currentUser.decorator';
 import { GQLAuthGuard } from 'src/auth/guards/gql.guard';
@@ -15,6 +16,9 @@ import { User } from 'src/users/models/User';
 import { NewMessageInput } from './dto/NewMessageInput';
 import { MessagesService } from './messages.service';
 import { Message } from './models/Message';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub();
 
 @Resolver(Message)
 export class MessagesResolver {
@@ -44,11 +48,14 @@ export class MessagesResolver {
     @CurrentUser() from: User,
     @Args('data') messageData: NewMessageInput,
   ) {
-    return await this.messagesService.sendMessage(
+    const message = await this.messagesService.sendMessage(
       from.id,
       messageData.toUserId,
       messageData.content,
     );
+    pubSub.publish('NEW_MESSAGE', { newMessage: message });
+
+    return message;
   }
 
   @UseGuards(GQLAuthGuard)
@@ -64,5 +71,10 @@ export class MessagesResolver {
   @Query(() => [User])
   async getUsers(@CurrentUser() currentUser: User) {
     return this.messagesService.getUsers(currentUser);
+  }
+
+  @Subscription(() => Message)
+  newMessage() {
+    return pubSub.asyncIterator('NEW_MESSAGE');
   }
 }

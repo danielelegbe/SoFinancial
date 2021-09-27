@@ -9,10 +9,17 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { setOtherUser } from '../../features/chat/chatSlice';
-import { useGetUsersQuery } from '../../generated/graphql';
+import {
+  IMessage,
+  setAllMessages,
+  setOtherUser,
+} from '../../features/chat/chatSlice';
+import {
+  useGetAllMessagesLazyQuery,
+  useGetUsersQuery,
+} from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
-import ChatArea from './ChatArea';
+import AllMessages from './AllMessages';
 
 const ChatBox = () => {
   const dispatch = useDispatch();
@@ -20,6 +27,18 @@ const ChatBox = () => {
 
   const { data, loading, error } = useGetUsersQuery({
     fetchPolicy: 'network-only',
+  });
+
+  const [getMessages] = useGetAllMessagesLazyQuery({
+    variables: {
+      getMessagesOtherUserId: otherUser.id!,
+    },
+
+    fetchPolicy: 'network-only',
+
+    onCompleted(data) {
+      if (data) dispatch(setAllMessages(data.getMessages as IMessage[]));
+    },
   });
 
   if (error) return <Heading>Error</Heading>;
@@ -32,6 +51,7 @@ const ChatBox = () => {
 
   const chatChangeHandler = async (userId: number) => {
     dispatch(setOtherUser(userId));
+    getMessages();
   };
 
   return (
@@ -73,7 +93,7 @@ const ChatBox = () => {
       </Stack>
 
       {/* Messages Section */}
-      {otherUser.id && <ChatArea />}
+      {otherUser.id && <AllMessages />}
     </Flex>
   );
 };

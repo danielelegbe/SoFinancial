@@ -2,10 +2,7 @@ import { ChatIcon } from '@chakra-ui/icons';
 import { Input } from '@chakra-ui/input';
 import { Circle, Flex } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import {
-  GetAllMessagesDocument,
-  useSendMessageMutation,
-} from '../../generated/graphql';
+import { useSendMessageMutation } from '../../generated/graphql';
 
 interface PropTypes {
   otherUserId: number;
@@ -27,21 +24,11 @@ const ChatInput = ({ otherUserId }: PropTypes) => {
           toUserId: otherUserId,
         },
       },
-      refetchQueries: [GetAllMessagesDocument],
     });
-
     setText('');
   };
   return (
-    <Flex
-      align="center"
-      pos="absolute"
-      bottom="10px"
-      left="90px"
-      w="40vw"
-      as="form"
-      onSubmit={sendMessageHandler}
-    >
+    <Flex my={4} w="90%" as="form" onSubmit={sendMessageHandler}>
       <Input
         borderColor="gray.400"
         mx={4}

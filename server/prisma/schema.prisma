@@ -19,6 +19,8 @@ model User {
   avatar String?
   posts Post[]
   comments Comment[]
+  sentMessages Message[] @relation("sentMessages")
+  receivedMessages Message[] @relation("receivedMessages")
 }
 
 model Forum{
@@ -54,4 +56,16 @@ model Comment {
 
   post Post? @relation(fields: [postId], references: [id]) 
   postId Int?
+}
+
+model Message{
+  id Int      @default(autoincrement()) @id
+  content String
+  createdAt DateTime @default(now())
+
+  from    User    @relation("sentMessages",fields: [fromUserId], references: [id])
+  fromUserId Int
+
+  to    User    @relation("receivedMessages",fields: [toUserId], references: [id])
+  toUserId Int
 }

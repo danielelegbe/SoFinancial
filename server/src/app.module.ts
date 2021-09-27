@@ -7,7 +7,7 @@ import { CommentsModule } from './comments/comments.module';
 import { ForumModule } from './forum/forum.module';
 import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -21,7 +21,8 @@ import { UsersService } from './users/users.service';
     PostsModule,
     ForumModule,
     CommentsModule,
+    MessagesModule,
   ],
-  providers: [UsersService],
+  providers: [],
 })
 export class AppModule {}

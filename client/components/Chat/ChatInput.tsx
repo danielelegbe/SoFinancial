@@ -1,7 +1,7 @@
 import { ChatIcon } from '@chakra-ui/icons';
 import { Input } from '@chakra-ui/input';
 import { Circle, Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import { useSendMessageMutation } from '../../generated/graphql';
 
 interface PropTypes {
@@ -10,11 +10,9 @@ interface PropTypes {
 
 const ChatInput = ({ otherUserId }: PropTypes) => {
   const [text, setText] = useState('');
-  const [sendMessage] = useSendMessageMutation({});
+  const [sendMessage] = useSendMessageMutation();
 
-  const sendMessageHandler: React.FormEventHandler<HTMLDivElement> = async (
-    e
-  ) => {
+  const sendMessageHandler: FormEventHandler<HTMLDivElement> = async (e) => {
     e.preventDefault();
 
     await sendMessage({
@@ -28,6 +26,7 @@ const ChatInput = ({ otherUserId }: PropTypes) => {
 
     setText('');
   };
+
   return (
     <Flex
       h={12}

@@ -20,8 +20,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
       spacing={3}
       boxShadow="lg"
       w="90%"
-      h={'35vh'}
-      py={8}
+      py={10}
       px={6}
       direction="column"
       justify="space-evenly"
@@ -49,7 +48,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
           {post.title}
         </Heading>
       </Link>
-      <Box as="section" maxH="50%" overflow="hidden">
+      <Box as="section">
         <Text>{post.content}</Text>
       </Box>
       <Flex w="50%" maxW="80%" justify="space-between">
@@ -80,7 +79,7 @@ const Post = (post: GetAllPostsQuery['getAllPosts'][0]) => {
           </HStack>
         )}
       </Flex>
-      <Text>{dayjs(post.createdAt).format('DD MMMM YYYY HH:MM')}</Text>
+      <Text>{dayjs(post.createdAt).format('DD MMMM YYYY HH:mm')}</Text>
     </Stack>
   );
 };

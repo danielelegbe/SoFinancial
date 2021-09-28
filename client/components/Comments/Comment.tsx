@@ -8,7 +8,7 @@ interface CommentType {
   __typename?: 'Comment' | undefined;
   id: number;
   content: string;
-  createdAt: any;
+  createdAt: Date;
   author?:
     | Maybe<{
         __typename?: 'User' | undefined;
@@ -40,7 +40,7 @@ const Comment = (comment: CommentType) => {
           )}
         </Box>
         <Text mt={2}>
-          {dayjs(comment.createdAt).format('DD MMMM YYYY HH:MM')}
+          {dayjs(comment.createdAt).format('DD MMMM YYYY HH:mm')}
         </Text>
       </Flex>
     </Stack>

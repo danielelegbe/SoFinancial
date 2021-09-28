@@ -10,7 +10,7 @@ interface PropTypes {
 
 const ChatInput = ({ otherUserId }: PropTypes) => {
   const [text, setText] = useState('');
-  const [sendMessage] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation({});
 
   const sendMessageHandler: React.FormEventHandler<HTMLDivElement> = async (
     e
@@ -25,19 +25,27 @@ const ChatInput = ({ otherUserId }: PropTypes) => {
         },
       },
     });
+
     setText('');
   };
   return (
-    <Flex my={4} w="90%" as="form" onSubmit={sendMessageHandler}>
+    <Flex
+      h={12}
+      p={6}
+      align="center"
+      w="90%"
+      as="form"
+      onSubmit={sendMessageHandler}
+    >
       <Input
-        borderColor="gray.400"
+        borderColor="gray.300"
         mx={4}
         w="100%"
         minWidth="100%"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <Circle bg="blue.500" color="white" size="40px" as="button" type="submit">
+      <Circle bg="blue.500" color="white" size="34px" as="button" type="submit">
         <ChatIcon />
       </Circle>
     </Flex>

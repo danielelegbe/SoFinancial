@@ -19,16 +19,17 @@ const Register = () => {
         <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Flex justify="center" align="center" h="80vh">
+      <Flex justify="center" align="center" h="100%">
         <Stack
           spacing={6}
           boxShadow="lg"
           w="30%"
-          h="80%"
+          h="70vh"
           bgColor="gray.50"
           justify="center"
           align="center"
           direction="column"
+          py={10}
         >
           <Image
             src="/return-on-investment.png"

@@ -3,8 +3,15 @@ import dayjs from 'dayjs';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { addNewMessage, IMessage } from '../../features/chat/chatSlice';
-import { useNewMessageSubscription } from '../../generated/graphql';
+import {
+  addNewMessage,
+  IMessage,
+  setAllMessages,
+} from '../../features/chat/chatSlice';
+import {
+  useGetAllMessagesLazyQuery,
+  useNewMessageSubscription,
+} from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
 import ChatInput from './ChatInput';
 
@@ -13,20 +20,31 @@ const ChatArea = () => {
   const dispatch = useDispatch();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const { data, loading } = useNewMessageSubscription();
+  const { data } = useNewMessageSubscription();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: 'smooth',
     });
   };
+  const [getMessages] = useGetAllMessagesLazyQuery({
+    variables: {
+      getMessagesOtherUserId: otherUser.id!,
+    },
+
+    fetchPolicy: 'network-only',
+
+    onCompleted(data) {
+      if (data) dispatch(setAllMessages(data.getMessages as IMessage[]));
+    },
+  });
 
   useEffect(() => {
-    if (!loading && data) {
-      dispatch(addNewMessage(data?.newMessage as IMessage));
-    }
+    getMessages();
+
+    data && dispatch(addNewMessage(data?.newMessage as IMessage));
     scrollToBottom();
-  }, [data]);
+  }, [data, dispatch, getMessages]);
   return (
     <Flex direction="column" justify="space-between" h="100%" w="100%">
       <Flex direction="column" overflowY="scroll">

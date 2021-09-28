@@ -9,15 +9,18 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { useGetProfileQuery } from '../../generated/graphql';
+import React, { useEffect } from 'react';
+import { useGetProfileQuery, useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
 import Post from '../../components/Posts/Post';
 import Head from 'next/head';
+import NewMessageModal from '../../components/Modals/NewMessageModal';
+import { setOtherUser } from '../../features/chat/chatSlice';
+import { useDispatch } from 'react-redux';
 
 const UserPage = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const { data, loading, error } = useGetProfileQuery({
     variables: {
       getProfileId: {
@@ -25,6 +28,12 @@ const UserPage = () => {
       },
     },
   });
+
+  useEffect(() => {
+    data && dispatch(setOtherUser(data?.getProfile.id));
+  }, [data, data?.getProfile.id, dispatch]);
+
+  const { data: meQuery } = useMeQuery();
 
   if (error) return <Heading>Error</Heading>;
 
@@ -43,11 +52,12 @@ const UserPage = () => {
         <HStack spacing={4}>
           <Heading as="h2">{user.username}</Heading>
           <Avatar src={user.avatar} />
+          {meQuery?.me?.id !== user.id && <NewMessageModal />}
         </HStack>
         <Heading mt={10} as="h3">
           Posts
         </Heading>
-        <Stack align="center">
+        <Stack align="center" w="70%">
           {user.posts?.map((post) => (
             <Post key={post.id} {...post} />
           ))}

@@ -4,10 +4,12 @@ mutation SendMessage($sendMessageData: NewMessageInput!) {
     content
     createdAt
     from {
+      id
       username
       avatar
     }
     to {
+      id
       username
       avatar
     }

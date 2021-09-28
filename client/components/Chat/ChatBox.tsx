@@ -26,19 +26,7 @@ const ChatBox = () => {
   const otherUser = useSelector((state: RootState) => state.chat);
 
   const { data, loading, error } = useGetUsersQuery({
-    fetchPolicy: 'network-only',
-  });
-
-  const [getMessages] = useGetAllMessagesLazyQuery({
-    variables: {
-      getMessagesOtherUserId: otherUser.id!,
-    },
-
-    fetchPolicy: 'network-only',
-
-    onCompleted(data) {
-      if (data) dispatch(setAllMessages(data.getMessages as IMessage[]));
-    },
+    // fetchPolicy: 'network-only',
   });
 
   if (error) return <Heading>Error</Heading>;
@@ -51,7 +39,6 @@ const ChatBox = () => {
 
   const chatChangeHandler = (userId: number) => {
     dispatch(setOtherUser(userId));
-    getMessages();
   };
 
   return (
@@ -84,6 +71,7 @@ const ChatBox = () => {
                 bg={otherUser.id === user.id ? 'blue.300' : 'blue.700'}
                 onClick={() => chatChangeHandler(user.id)}
                 _hover={{ cursor: 'pointer' }}
+                transition="0.2s"
               >
                 <Text
                   _hover={{ textDecoration: 'underline', cursor: 'pointer' }}

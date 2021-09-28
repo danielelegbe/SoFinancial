@@ -34,14 +34,20 @@ export const chatSlice = createSlice({
       state: SelectedUser,
       { payload }: PayloadAction<IMessage[]>
     ) => {
-      state.messages = payload;
+      return {
+        ...state,
+        messages: payload,
+      };
     },
 
     addNewMessage: (
       state: SelectedUser,
       { payload }: PayloadAction<IMessage>
     ) => {
-      state.messages.push(payload);
+      return {
+        ...state,
+        messages: [...state.messages, payload],
+      };
     },
   },
 });

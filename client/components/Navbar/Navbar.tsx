@@ -4,12 +4,12 @@ import {
   Box,
   Button,
   Flex,
+  Heading,
   HStack,
   Link,
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { Heading } from '@chakra-ui/react';
 import axios from 'axios';
 import NextLink from 'next/link';
 import React from 'react';
@@ -37,22 +37,14 @@ const Navbar = () => {
   const { data } = useMeQuery();
   const user = data?.me;
   return (
-    <Flex
-      direction="column"
-      pos="sticky"
-      w="100vw"
-      zIndex="100"
-      top={0}
-      mb={8}
-      left={0}
-    >
-      <Flex as={'header'} maxH="80px" boxShadow="md" bg="gray.50">
-        <Box p={4} pl={20} flexShrink={3}>
+    <Box pos="sticky" zIndex="100" top={0} mb={8} bgColor="white">
+      <Flex as={'header'} boxShadow="md">
+        <Box p={4} pl={20} flex="40%">
           <Link as={NextLink} href="/">
             <Heading
               textDecor="underline"
               _hover={{ cursor: 'pointer' }}
-              size="xl"
+              // size="xl"
               as="h1"
             >
               SoFinancial
@@ -60,10 +52,10 @@ const Navbar = () => {
           </Link>
         </Box>
         <HStack
+          flex="60%"
           spacing={6}
           as="nav"
           align="center"
-          ml={40}
           // justify="space-around"
           className={styles.nav}
           w="20vw"
@@ -113,7 +105,7 @@ const Navbar = () => {
         </HStack>
       </Flex>
       <AllCurrencies />
-    </Flex>
+    </Box>
   );
 };
 

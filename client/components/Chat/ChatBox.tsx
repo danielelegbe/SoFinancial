@@ -9,15 +9,8 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import {
-  IMessage,
-  setAllMessages,
-  setOtherUser,
-} from '../../features/chat/chatSlice';
-import {
-  useGetAllMessagesLazyQuery,
-  useGetUsersQuery,
-} from '../../generated/graphql';
+import { setOtherUser } from '../../features/chat/chatSlice';
+import { useGetUsersQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
 import AllMessages from './AllMessages';
 
@@ -26,7 +19,7 @@ const ChatBox = () => {
   const otherUser = useSelector((state: RootState) => state.chat);
 
   const { data, loading, error } = useGetUsersQuery({
-    // fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',
   });
 
   if (error) return <Heading>Error</Heading>;
@@ -43,10 +36,10 @@ const ChatBox = () => {
 
   return (
     <Flex
-      mx="auto"
-      bgColor="gray.50"
-      w="70vw"
-      h="80vh"
+      m="auto"
+      colorScheme="gray"
+      w="70%"
+      h="70vh"
       borderRadius="md"
       boxShadow="md"
     >
@@ -59,6 +52,9 @@ const ChatBox = () => {
         borderRadius="md"
         bgColor="blue.500"
       >
+        <Heading size="md" mt={4} textAlign="center" color="white">
+          Current Chat
+        </Heading>
         {data.getUsers.map((user) => {
           return (
             <Flex key={user.id} p={5}>

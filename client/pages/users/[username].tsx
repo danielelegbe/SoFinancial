@@ -1,22 +1,21 @@
 import { getDataFromTree } from '@apollo/client/react/ssr';
 import {
   Avatar,
-  Box,
-  HStack,
-  Heading,
-  Progress,
   Flex,
+  Heading,
+  HStack,
+  Progress,
   Stack,
 } from '@chakra-ui/react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import NewMessageModal from '../../components/Modals/NewMessageModal';
+import Post from '../../components/Posts/Post';
+import { setOtherUser } from '../../features/chat/chatSlice';
 import { useGetProfileQuery, useMeQuery } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
-import Post from '../../components/Posts/Post';
-import Head from 'next/head';
-import NewMessageModal from '../../components/Modals/NewMessageModal';
-import { setOtherUser } from '../../features/chat/chatSlice';
-import { useDispatch } from 'react-redux';
 
 const UserPage = () => {
   const router = useRouter();
@@ -28,7 +27,6 @@ const UserPage = () => {
       },
     },
   });
-
   useEffect(() => {
     data && dispatch(setOtherUser(data?.getProfile.id));
   }, [data, data?.getProfile.id, dispatch]);
@@ -52,7 +50,7 @@ const UserPage = () => {
         <HStack spacing={4}>
           <Heading as="h2">{user.username}</Heading>
           <Avatar src={user.avatar} />
-          {meQuery?.me?.id !== user.id && <NewMessageModal />}
+          {meQuery?.me && meQuery?.me?.id !== user.id && <NewMessageModal />}
         </HStack>
         <Heading mt={10} as="h3">
           Posts

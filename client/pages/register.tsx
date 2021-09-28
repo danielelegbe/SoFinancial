@@ -75,6 +75,7 @@ const Register = () => {
                       type="submit"
                       size="md"
                       w="30%"
+                      px={12}
                       alignSelf="center"
                     >
                       Register

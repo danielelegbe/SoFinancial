@@ -23,9 +23,7 @@ const ChatArea = () => {
   const { data } = useNewMessageSubscription();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const [getMessages] = useGetAllMessagesLazyQuery({
     variables: {
@@ -43,15 +41,24 @@ const ChatArea = () => {
     getMessages();
 
     data && dispatch(addNewMessage(data?.newMessage as IMessage));
-    scrollToBottom();
   }, [data, dispatch, getMessages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [otherUser.messages.length]);
+
   return (
     <Flex direction="column" justify="space-between" h="100%" w="100%">
       <Flex direction="column" overflowY="scroll">
-        {otherUser?.messages.map(
-          (message) =>
+        {otherUser?.messages.map((message, index) => {
+          return (
             message && (
               <HStack
+                ref={
+                  index === otherUser.messages.length - 1
+                    ? messagesEndRef
+                    : null
+                }
                 spacing={2}
                 align="center"
                 p={2}
@@ -59,7 +66,7 @@ const ChatArea = () => {
                 borderRadius="md"
                 key={message.id}
                 bgColor={
-                  message.from?.id === otherUser.id ? 'blue.700' : 'gray.200'
+                  message.from?.id === otherUser.id ? 'blue.500' : 'gray.200'
                 }
                 alignSelf={
                   message.from?.id === otherUser.id ? 'flex-start' : 'flex-end'
@@ -70,13 +77,13 @@ const ChatArea = () => {
                   color={message.from?.id === otherUser.id ? 'white' : 'black'}
                 >
                   <Text>{message.content}</Text>
-                  <Text>{dayjs(message.createdAt).format('HH:MM')}</Text>
+                  <Text>{dayjs(message.createdAt).format('HH:mm')}</Text>
                 </Box>
                 <Avatar src={message.from?.avatar} size="xs" />
               </HStack>
             )
-        )}
-        <Box ref={messagesEndRef} />
+          );
+        })}
       </Flex>
 
       <Box bg="gray.100">

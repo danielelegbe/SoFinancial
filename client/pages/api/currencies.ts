@@ -15,10 +15,11 @@ const ioHandler: NextApiHandler = async (req, res) => {
   socket.addEventListener('open', (event) => {
     socket.send(JSON.stringify({ type: 'subscribe', symbol: 'OANDA:EUR_USD' }));
     socket.send(JSON.stringify({ type: 'subscribe', symbol: 'OANDA:GBP_USD' }));
-    socket.send(JSON.stringify({ type: 'subscribe', symbol: 'OANDA:USD_CAD' }));
+    socket.send(JSON.stringify({ type: 'subscribe', symbol: 'AAPL' }));
     socket.send(
       JSON.stringify({ type: 'subscribe', symbol: 'BINANCE:BTCUSDT' })
     );
+    socket.send(JSON.stringify({ type: 'subscribe', symbol: 'TSLA' }));
   });
 
   // Listen for messages

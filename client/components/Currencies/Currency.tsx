@@ -1,5 +1,5 @@
 import { MinusIcon, TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
-import { ComponentWithAs, HStack, IconProps, Text } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';

@@ -17,7 +17,7 @@ const Currencies = () => {
 
   useEffect(() => {
     const socket = io();
-    axios('/api/currencies').finally(() => {
+    axios('/api/currencies').then(() => {
       io('/');
     });
     socket.on('currencies', (data) => {

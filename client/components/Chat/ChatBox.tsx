@@ -49,7 +49,7 @@ const ChatBox = () => {
       </Flex>
     );
 
-  const chatChangeHandler = async (userId: number) => {
+  const chatChangeHandler = (userId: number) => {
     dispatch(setOtherUser(userId));
     getMessages();
   };
@@ -64,7 +64,14 @@ const ChatBox = () => {
       boxShadow="md"
     >
       {/* All Chat section */}
-      <Stack spacing={4} w="20%" h="100%" borderRadius="md" bgColor="blue.500">
+      <Stack
+        spacing={4}
+        w="20%"
+        position="relative"
+        h="100%"
+        borderRadius="md"
+        bgColor="blue.500"
+      >
         {data.getUsers.map((user) => {
           return (
             <Flex key={user.id} p={5}>
@@ -74,7 +81,7 @@ const ChatBox = () => {
                 borderRadius="md"
                 align="center"
                 boxShadow="md"
-                bg="blue.700"
+                bg={otherUser.id === user.id ? 'blue.300' : 'blue.700'}
                 onClick={() => chatChangeHandler(user.id)}
                 _hover={{ cursor: 'pointer' }}
               >
@@ -93,7 +100,7 @@ const ChatBox = () => {
       </Stack>
 
       {/* Messages Section */}
-      {otherUser.id && <AllMessages />}
+      {<AllMessages />}
     </Flex>
   );
 };

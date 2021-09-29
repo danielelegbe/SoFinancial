@@ -1,5 +1,5 @@
 import { SearchIcon } from '@chakra-ui/icons';
-import { InputGroup, InputLeftElement, Input } from '@chakra-ui/input';
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Box } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';

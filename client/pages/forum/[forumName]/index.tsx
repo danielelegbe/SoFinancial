@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import AddPostModal from '../../../components/Modals/AddPostModal';
 import Post from '../../../components/Posts/Post';
-import SearchForum from '../../../components/Search/SerachForum';
+import SearchForum from '../../../components/Search/SearchForum';
 import { useGetForumQuery } from '../../../generated/graphql';
 import withApollo from '../../../lib/withApollo';
 

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import CreateForumModal from '../../components/Modals/CreateForumModal';
 import PostsSection from '../../components/Posts/PostsSection';
-import SearchForum from '../../components/Search/SerachForum';
+import SearchForum from '../../components/Search/SearchForum';
 
 const Forum = () => {
   return (

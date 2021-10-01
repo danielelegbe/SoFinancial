@@ -10,7 +10,7 @@ interface PropTypes {
 const ArticleSection = ({ articles }: PropTypes) => {
   const router = useRouter();
   return (
-    <Flex direction="column" align="center" w="75%" mx="auto">
+    <Flex data-testid='article-selection-container' direction="column" align="center" w="75%" mx="auto">
       <Heading
         style={{ textTransform: 'capitalize' }}
         as="h3"

@@ -37,7 +37,7 @@ const Navbar = () => {
   const { data } = useMeQuery();
   const user = data?.me;
   return (
-    <Box pos="sticky" zIndex="100" top={0} mb={8} bgColor="white">
+    <Box data-testid='nav-container' pos="sticky" zIndex="100" top={0} mb={8} bgColor="white">
       <Flex as={'header'} boxShadow="md">
         <Box p={4} pl={20} flex="40%">
           <Link as={NextLink} href="/">

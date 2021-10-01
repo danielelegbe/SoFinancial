@@ -1,4 +1,5 @@
-import { Flex } from '@chakra-ui/react';
+import 'setimmediate'
+import { Flex, Heading } from '@chakra-ui/react';
 import axios, { AxiosRequestConfig } from 'axios';
 import type { InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
@@ -16,6 +17,7 @@ const Home = ({
         <title>Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <Heading>Home</Heading>
       <Flex direction="column">
         {uniqueArticles.length > 0 && (
           <ArticleSection articles={uniqueArticles} />

@@ -5,6 +5,7 @@ import Article from './interfaces/Article';
 const ArticleCard = ({ author, link, title, media, rights }: Article) => {
   return (
     <Flex
+      data-testid='article-card-container'
       _hover={{
         cursor: 'pointer',
         transform: 'scale(1.02)',

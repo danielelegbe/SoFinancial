@@ -8,6 +8,7 @@ import { ForumModule } from './forum/forum.module';
 import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
+import { databaseModule } from './test/database/prisma.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MessagesModule } from './messages/messages.module';
     ForumModule,
     CommentsModule,
     MessagesModule,
+    databaseModule
   ],
   providers: [],
 })

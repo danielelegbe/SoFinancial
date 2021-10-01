@@ -19,7 +19,7 @@ const Register = () => {
         <title>Register</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Flex justify="center" align="center" h="100%">
+      <Flex data-testid='navy' justify="center" align="center" h="100%">
         <Stack
           spacing={6}
           boxShadow="lg"

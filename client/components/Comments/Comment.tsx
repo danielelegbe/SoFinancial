@@ -22,7 +22,7 @@ interface CommentType {
 const Comment = (comment: CommentType) => {
   const { data } = useMeQuery();
   return (
-    <Stack spacing={8} p={6} pb={8} mt="20" boxShadow="md" bgColor="gray.50">
+    <Stack data-testid='comment' spacing={8} p={6} pb={8} mt="20" boxShadow="md" bgColor="gray.50">
       <Box>{comment.content}</Box>
       <Flex direction="column" justify="center">
         <Box>

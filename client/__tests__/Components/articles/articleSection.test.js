@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen, cleanup } from '@testing-library/react';
-import ArticleSection from '../../components/Articles/ArticleSection';
-import { store } from '../../app/store';
+import ArticleSection from '../../../components/Articles/ArticleSection';
+import { store } from '../../../app/store';
 import { Provider } from 'react-redux';
 
 jest.mock('next/router', () => {

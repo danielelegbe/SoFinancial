@@ -29,6 +29,7 @@ const ChatInput = ({ otherUserId }: PropTypes) => {
 
   return (
     <Flex
+      data-testid='chat-input'
       h={12}
       p={6}
       align="center"

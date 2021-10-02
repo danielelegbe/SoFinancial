@@ -48,7 +48,7 @@ const ChatArea = () => {
   }, [otherUser.messages.length]);
 
   return (
-    <Flex direction="column" justify="space-between" h="100%" w="100%">
+    <Flex data-testid='all-messages' direction="column" justify="space-between" h="100%" w="100%">
       <Flex direction="column" overflowY="scroll">
         {otherUser?.messages.map((message, index) => {
           return (

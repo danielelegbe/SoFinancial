@@ -25,7 +25,7 @@ const ChatBox = () => {
   if (error) return <Heading>Error</Heading>;
   if (!data || loading)
     return (
-      <Flex justify="center" align="center">
+      <Flex data-testid="chat-box" justify="center" align="center">
         <CircularProgress color="blue.500" isIndeterminate />
       </Flex>
     );
@@ -36,6 +36,7 @@ const ChatBox = () => {
 
   return (
     <Flex
+    data-testid="chat-box"
       m="auto"
       colorScheme="gray"
       w="70%"

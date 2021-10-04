@@ -41,7 +41,7 @@ describe('test', () => {
     render(<Provider store = {store}>
       <ArticleSearchPage uniqueArticles={mockArticles} search={mocksearch}/></Provider>)
 
-      screen.debug();
+      // screen.debug();
     // const home = screen.getByTestId('home');
     // expect(home).toBeInTheDocument();
   })

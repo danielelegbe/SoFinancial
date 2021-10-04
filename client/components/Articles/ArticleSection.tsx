@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import ArticleCard from './ArticleCard';
@@ -12,6 +12,7 @@ const ArticleSection = ({ articles }: PropTypes) => {
   return (
     <Flex data-testid='article-selection-container' direction="column" align="center" w="75%" mx="auto">
       <Heading
+        data-testid='title'
         style={{ textTransform: 'capitalize' }}
         as="h3"
         size="lg"
@@ -26,8 +27,10 @@ const ArticleSection = ({ articles }: PropTypes) => {
         mx="auto"
         flexWrap="wrap"
       >
-        {articles.map((article) => (
-          <ArticleCard key={article._id} {...article} />
+        {articles.map((article,i) => (
+          <Box key={article._id}  data-testid={`article-list-item-${i}`}>
+            <ArticleCard  {...article} />
+            </Box>
         ))}
       </Flex>
     </Flex>

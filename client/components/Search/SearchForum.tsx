@@ -20,6 +20,7 @@ const SearchForum = () => {
           <SearchIcon color="blackAlpha.500" as="label" htmlFor="search" />
         </InputLeftElement>
         <Input
+          data-testid='forum-input'
           onChange={(e) => setSearchQuery(e.target.value)}
           value={searchQuery}
           id="search"

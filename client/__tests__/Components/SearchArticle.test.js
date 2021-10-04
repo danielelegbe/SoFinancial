@@ -20,5 +20,6 @@ import '@testing-library/jest-dom';
     fireEvent.change(articleInput, { target: { value: 'article search' } })
     expect(articleInput.value).toBe('article search')
     // fireEvent.submit(buttonElement)
+    // console.log(screen)
     // const articleDisp = screen.getByTestId('title');
   })

@@ -22,4 +22,18 @@ describe('should render an article', () => {
     const articleCard = screen.getByTestId('article-card-container');
     expect(articleCard).toBeInTheDocument();
   })
+
+  test('expect the correct text to be rendered to the screen', () => {
+    render(<Provider store={store}><ArticleCard {...singleArticle} /></Provider>)
+    const articleCard = screen.getByTestId('article-card-container');
+
+    const imgsource = screen.getByTestId('image')
+    
+
+    expect(articleCard).toHaveTextContent(singleArticle.author);
+    expect(articleCard).toHaveTextContent(singleArticle.rights);
+    expect(articleCard.getAttribute("href")).toEqual(singleArticle.link);
+    expect(imgsource.getAttribute("src")).toContain(singleArticle.media);
+    expect(articleCard).toHaveTextContent(singleArticle.title);
+  })
 })

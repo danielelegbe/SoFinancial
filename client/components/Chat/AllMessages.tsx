@@ -3,15 +3,8 @@ import dayjs from 'dayjs';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import {
-  addNewMessage,
-  IMessage,
-  setAllMessages,
-} from '../../features/chat/chatSlice';
-import {
-  useGetAllMessagesLazyQuery,
-  useNewMessageSubscription,
-} from '../../generated/graphql';
+import { addNewMessage, IMessage, setAllMessages } from '../../features/chat/chatSlice';
+import { useGetAllMessagesLazyQuery, useNewMessageSubscription } from '../../generated/graphql';
 import withApollo from '../../lib/withApollo';
 import ChatInput from './ChatInput';
 
@@ -85,7 +78,6 @@ const ChatArea = () => {
           );
         })}
       </Flex>
-
       <Box bg="gray.100">
         <ChatInput otherUserId={otherUser.id!} />
       </Box>

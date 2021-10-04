@@ -26,6 +26,7 @@ const ArticleCard = ({ author, link, title, media, rights }: Article) => {
     >
       {media && (
         <Image
+          data-testid = "image"
           position="relative"
           alt={title}
           maxH="50%"

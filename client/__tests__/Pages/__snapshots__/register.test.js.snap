@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login page tests snapshot register page test 1`] = `
+<div
+  className="css-tkevr6"
+  data-testid="register"
+>
+  <div
+    className="chakra-stack css-14gxs4"
+  >
+    <div
+      style={
+        Object {
+          "boxSizing": "border-box",
+          "display": "inline-block",
+          "margin": 0,
+          "maxWidth": "100%",
+          "overflow": "hidden",
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "boxSizing": "border-box",
+            "display": "block",
+            "maxWidth": "100%",
+          }
+        }
+      >
+        <img
+          alt=""
+          aria-hidden={true}
+          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
+          style={
+            Object {
+              "border": "none",
+              "display": "block",
+              "margin": 0,
+              "maxWidth": "100%",
+              "padding": 0,
+            }
+          }
+        />
+      </div>
+      <img
+        alt="currency-icon"
+        data-nimg="intrinsic"
+        decoding="async"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        style={
+          Object {
+            "border": "none",
+            "bottom": 0,
+            "boxSizing": "border-box",
+            "display": "block",
+            "height": 0,
+            "left": 0,
+            "margin": "auto",
+            "maxHeight": "100%",
+            "maxWidth": "100%",
+            "minHeight": "100%",
+            "minWidth": "100%",
+            "objectFit": undefined,
+            "objectPosition": undefined,
+            "padding": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "width": 0,
+          }
+        }
+      />
+      <noscript>
+        <img
+          alt="currency-icon"
+          data-nimg="intrinsic"
+          decoding="async"
+          loading="lazy"
+          src="/_next/image?url=%2Freturn-on-investment.png&w=256&q=75"
+          srcSet="/_next/image?url=%2Freturn-on-investment.png&w=128&q=75 1x, /_next/image?url=%2Freturn-on-investment.png&w=256&q=75 2x"
+          style={
+            Object {
+              "border": "none",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "height": 0,
+              "left": 0,
+              "margin": "auto",
+              "maxHeight": "100%",
+              "maxWidth": "100%",
+              "minHeight": "100%",
+              "minWidth": "100%",
+              "objectFit": undefined,
+              "objectPosition": undefined,
+              "padding": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 0,
+            }
+          }
+        />
+      </noscript>
+    </div>
+    <p
+      className="chakra-text css-6g8l6z"
+    >
+      Register
+    </p>
+    <div
+      className="css-a6rva7"
+    >
+      <form
+        action="#"
+        onReset={[Function]}
+        onSubmit={[Function]}
+      >
+        <div
+          className="chakra-stack css-137fd6w"
+        >
+          <input
+            className="chakra-input css-0"
+            name="email"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Email"
+            value=""
+          />
+          <input
+            className="chakra-input css-0"
+            name="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Username"
+            value=""
+          />
+          <input
+            className="chakra-input css-0"
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Password"
+            type="password"
+            value=""
+          />
+          <button
+            className="chakra-button css-56oenl"
+            disabled={false}
+            type="submit"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

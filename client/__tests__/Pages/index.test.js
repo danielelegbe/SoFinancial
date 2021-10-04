@@ -1,11 +1,15 @@
 import { render, screen, cleanup } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import  Home from '../../pages/index';
 import { store } from '../../app/store';
 import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
+import { afterEach, describe } from 'jest-circus';
 
-  test('It should render the index page', () => {
-    const mockArticle = {
+describe('Home page tests', () => {
+  let mockArticle
+  beforeEach(() => {
+    mockArticle = {
       author: 'An author',
       rights: 'No rights',
       link: 'No links',
@@ -13,10 +17,19 @@ import '@testing-library/jest-dom';
       title: 'No titles',
       _id: 'No ID',
     }
-    render(<Provider store = {store}>
-      <Home uniqueArticles = {mockArticle}/></Provider>)
-    const home = screen.getByTestId('home');
-    expect(home).toBeInTheDocument();
+  })
+  afterEach(() => {
+    cleanup()
   })
 
-  
+  test('It should render the index page', () => {
+    render(<Provider store = {store}><Home uniqueArticles = {mockArticle}/></Provider>)
+      const home = screen.getByTestId('home');
+      expect(home).toBeInTheDocument();
+  })
+
+  test('snapshot home page test', () => {
+    const homePage = renderer.create(<Provider store = {store}><Home uniqueArticles = {mockArticle}/></Provider>).toJSON();
+    expect(homePage).toMatchSnapshot()
+  })
+})

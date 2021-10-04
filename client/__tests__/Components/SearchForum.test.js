@@ -34,7 +34,7 @@ afterEach(() => {
     render(<Provider store = {store}>
       <SearchForum/></Provider>)
     fireEvent.change(screen.getByRole('textbox'), {
-      target: {value: "Berkshire Hathaway"},
+      target: {value: "Berkshire Hathaway"}
     })
 
     // expect(onChange).toHaveBeenCalledTimes(1);

@@ -31,18 +31,6 @@ const Home = ({
 export default Home;
 
 export const getStaticProps = async () => {
-  //Option 1
-  // const options: AxiosRequestConfig = {
-  //   method: 'GET',
-  //   url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
-  //   params: { topic: 'business', lang: 'en', media: 'True' },
-  //   headers: {
-  //     'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
-  //     'x-rapidapi-key': process.env.RAPID_API_KEY,
-  //   },
-  // };
-
-  //Option 2
   const options: AxiosRequestConfig = {
     method: 'GET',
     url: 'https://api.newscatcherapi.com/v2/latest_headlines',
@@ -57,7 +45,6 @@ export const getStaticProps = async () => {
   const seen = new Set();
   const uniqueArticles: Article[] = articles
     .filter((el: Article) => {
-      // if (!el.author) return false (testing, may add in future)
       if (!el.media) return false;
       if (!el.link) return false;
       const duplicate = seen.has(el.media);

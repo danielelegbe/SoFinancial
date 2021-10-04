@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import  SearchArticle from '../components/Search/SearchArticle';
-import { store } from '../app/store';
+import  SearchArticle from '../../components/Search/SearchArticle';
+import { store } from '../../app/store';
 import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
 

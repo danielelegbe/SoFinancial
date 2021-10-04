@@ -14,7 +14,7 @@ const SearchForum = () => {
     router.push(`/forum/${searchQuery}`).then(() => setSearchQuery(''));
   };
   return (
-    <Box as="form" w="40%" my={8} onSubmit={searchHandler} mx="auto">
+    <Box data-testid='textbox' as="form" w="40%" my={8} onSubmit={searchHandler} mx="auto">
       <InputGroup>
         <InputLeftElement as="label" htmlFor="search">
           <SearchIcon color="blackAlpha.500" as="label" htmlFor="search" />

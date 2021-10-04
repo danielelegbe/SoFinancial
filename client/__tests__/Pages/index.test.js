@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import  Home from '../pages/index';
-import { store } from '../app/store';
+import  Home from '../../pages/index';
+import { store } from '../../app/store';
 import { Provider } from 'react-redux';
 import '@testing-library/jest-dom';
 

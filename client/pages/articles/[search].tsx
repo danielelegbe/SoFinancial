@@ -17,7 +17,7 @@ const ArticleSearchPage = ({
         <title>{search}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Stack my={6} align="center">
+      <Stack data-testid='SearchArticle' my={6} align="center">
         <Search />
       </Stack>
       <ArticleSection articles={uniqueArticles} />

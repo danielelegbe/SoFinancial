@@ -15,11 +15,11 @@ const Login = () => {
 
   return (
     <>
-      <Head>
+      <Head >
         <title>Login</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Flex justify="center" align="center" h="65vh">
+      <Flex data-testid='login' justify="center" align="center" h="65vh">
         <Stack
           spacing={6}
           boxShadow="lg"

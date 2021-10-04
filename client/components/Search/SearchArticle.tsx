@@ -14,7 +14,7 @@ const SearchArticle = () => {
     router.push(`/articles/${searchQuery}`).then(() => setSearchQuery(''));
   };
   return (
-    <Box as="form" w="30%" onSubmit={searchHandler}>
+    <Box data-testid='SearchArticle' as="form" w="30%" onSubmit={searchHandler}>
       <InputGroup>
         <InputLeftElement as="label" htmlFor="search">
           <SearchIcon color="blackAlpha.500" as="label" htmlFor="search" />

@@ -13,11 +13,11 @@ const Home = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
-      <Head>
+      <Head >
         <title>Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Heading>Home</Heading>
+      <Heading data-testid='home'>Home</Heading>
       <Flex direction="column">
         {uniqueArticles.length > 0 && (
           <ArticleSection articles={uniqueArticles} />

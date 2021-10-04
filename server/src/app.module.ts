@@ -8,7 +8,7 @@ import { ForumModule } from './forum/forum.module';
 import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 import { MessagesModule } from './messages/messages.module';
-import { databaseModule } from './test/database/prisma.module';
+import { databaseModule } from './__test__/database/prisma.module';
 
 @Module({
   imports: [

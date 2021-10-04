@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test 1`] = `
+<div
+  className="css-io698s"
+  data-testid="all-currencies"
+>
+  <div
+    aria-valuemax={100}
+    aria-valuemin={0}
+    className="chakra-progress css-120wkjd"
+    data-indeterminate=""
+    role="progressbar"
+  >
+    <svg
+      className="css-jf70f3"
+      viewBox="0 0 100 100"
+    >
+      <circle
+        className="chakra-progress__track css-1bhxzgy"
+        cx={50}
+        cy={50}
+        r={42}
+        strokeWidth="10px"
+      />
+      <circle
+        className="chakra-progress__indicator css-p6i8i8"
+        cx={50}
+        cy={50}
+        r={42}
+        strokeWidth="10px"
+      />
+    </svg>
+  </div>
+  <div
+    className="chakra-stack css-15lgeks"
+  />
+</div>
+`;

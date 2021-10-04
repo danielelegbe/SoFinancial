@@ -31,6 +31,7 @@ const Currency = ({ s: symbol, p: price }: ICurrency) => {
 
   return (
     <HStack
+      data-testid='currency'
       border="1px"
       borderColor="gray.200"
       rounded="md"

@@ -38,4 +38,16 @@ describe('test', () => {
     render(<Provider store={store}><ArticleSection articles={mockArticles} /></Provider>)
     const sectionArticles = screen.getByTestId('article-selection-container');
   })
+
+  test('article list items load', async () => {
+    render(<Provider store={store}><ArticleSection articles={mockArticles} /></Provider>)
+    const firstArticle = await screen.findByTestId('article-list-item-0')
+    expect(firstArticle).toBeInTheDocument();
+  })
+
+  test('entire article list loads correctly', async () => {
+    render(<Provider store={store}><ArticleSection articles={mockArticles} /></Provider>)
+    const articleList = await screen.findAllByTestId(/article-list-item/i)
+    expect(articleList.length).toBe(2)
+  })
 })

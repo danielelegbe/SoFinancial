@@ -15,7 +15,10 @@ import '@testing-library/jest-dom';
 
     render(<Provider store = {store}>
       <SearchArticle /></Provider>)
-    const forumInput = screen.getByTestId('article-input');
-    fireEvent.change(forumInput, { target: { value: 'article search' } })
-    expect(forumInput.value).toBe('article search')
+    const articleInput = screen.getByTestId('article-input');
+    // const buttonElement = screen.getByTestId('SearchArticle')
+    fireEvent.change(articleInput, { target: { value: 'article search' } })
+    expect(articleInput.value).toBe('article search')
+    // fireEvent.submit(buttonElement)
+    // const articleDisp = screen.getByTestId('title');
   })

@@ -13,6 +13,10 @@ jest.mock('next/router', () => {
   }}
 })
 
+afterEach(() => {
+  cleanup();
+})
+
   test('It should render the searchhandler', () => {
     
     render(<Provider store = {store}>

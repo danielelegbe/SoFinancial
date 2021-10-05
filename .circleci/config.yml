@@ -24,4 +24,4 @@ workflows:
         - node/test:
             app-dir: server 
             run-command: test 
-            pkg-manager: yarn
+          

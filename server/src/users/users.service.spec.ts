@@ -15,30 +15,27 @@ describe('Users Service', () => {
     await app.init();
   });
 
-  describe('Get all users', () => {
-    it('should return all users', async () => {
-      const users = await usersService.getAllUsers();
-      users.forEach((user) => {
-        expect(user).toMatchObject({
-          username: expect.any(String),
-          email: expect.any(String),
-          avatar: expect.any(String),
-          password: expect.any(String),
-          id: expect.any(Number),
-        });
-      });
+  it('should be able to create a new user', async () => {
+    const user = await usersService.createUser({
+      username: 'johndoe',
+      password: 'johndoe123',
+      email: 'johndoe123@email.com',
+    });
+    expect(user).toMatchObject({
+      username: expect.any(String),
+      password: expect.any(String),
+      email: expect.any(String),
+      avatar: expect.any(String),
     });
   });
 
-  describe('Find One User', () => {
-    it('should return one user', async () => {
-      const foundUser = await usersService.findUserById(1);
-      expect(foundUser).toMatchObject({
-        username: expect.any(String),
-        email: expect.any(String),
-        avatar: expect.any(String),
-        id: expect.any(Number),
-      });
+  it('should return all users', async () => {
+    const foundUser = await usersService.findUserById(1);
+    expect(foundUser).toMatchObject({
+      username: expect.any(String),
+      email: expect.any(String),
+      avatar: expect.any(String),
+      id: expect.any(Number),
     });
   });
 });

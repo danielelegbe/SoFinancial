@@ -22,7 +22,7 @@ workflows:
     server-testing:
       jobs:
         - node/test:
-            version: v14.16.1 
+            version: 14.16.1 
             app-dir: server 
             pkg-manager: yarn 
             run-command: test 

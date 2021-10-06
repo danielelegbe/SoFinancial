@@ -5,29 +5,25 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
-    
-
-
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
-     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/so_financial_test
-     ACCESS_SECRET: access_testing123
-     REFRESH_SECRET: refresh_testing123
-     PORT: 4000
-     
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/so_financial_test
+      ACCESS_SECRET: access_testing123
+      REFRESH_SECRET: refresh_testing123
+      PORT: 4000
+
     services:
       postgres:
         image: postgres:latest
         ports:
           - 5432:5432
-          
+
         env:
           PGHOST: localhost
           PGUSER: postgres
@@ -35,7 +31,7 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
-          
+
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -49,21 +45,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-        
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - run: npm install
-      working-directory: server
-      
-    - run: npx prisma migrate dev
-      working-directory: server
-      
-    - run: npm run build
-      working-directory: server
-      
-    - run: npm test
-      working-directory: server
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm install
+        working-directory: server
+
+      - run: npx prisma migrate dev
+        working-directory: server
+
+      - run: npm test
+        working-directory: server

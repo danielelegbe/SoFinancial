@@ -51,12 +51,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+          cache-dependency-path: server/yarn.lock
 
-      - run: npm install
+      - run: yarn install
         working-directory: server
 
-      - run: npx prisma migrate dev
+      - run: yarn prisma migrate dev
         working-directory: server
 
-      - run: npm test
+      - run: yarn test
         working-directory: server

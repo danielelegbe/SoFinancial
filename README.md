@@ -1,6 +1,6 @@
 # SoFinancial
 
-#### SoFinancial is a React/Next.js application where users can discover articles on all things financial, as well as a forum to discuss any topic.
+## SoFinancial is a React/Next.js application where users can discover articles on all things financial, as well as a forum to discuss any topic
 
 
 ## Screenshots
@@ -33,6 +33,3 @@
 - PostgreSQL
 - Prisma
 - Typescript
-
- 
- 
